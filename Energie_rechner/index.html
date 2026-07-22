@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energieverbrauchs-Rechner</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Decoration -->
+    <div class="hintergrund">
+        <div class="farbfleck farbfleck-1"></div>
+        <div class="farbfleck farbfleck-2"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="rechner-behaelter">
+
+        <header>
+            <h1>Energie-Rechner</h1>
+            <p>Berechne die Stromkosten deiner Geräte</p>
+        </header>
+
+        <!-- Bento Grid Layout -->
+        <div class="bento-raster">
+
+            <!-- 1. Input Panel -->
+            <div class="bento-karte eingabe-bereich">
+
+                <!-- Device Name -->
+                <div class="eingabe-gruppe">
+                    <label for="geraet">Gerät auswählen / benennen</label>
+                    <input type="text" id="geraet" placeholder="z.B. Fernseher, Kühlschrank..." value="Gaming PC">
+                </div>
+
+                <!-- Wattage -->
+                <div class="eingabe-gruppe">
+                    <label for="watt">Leistung (in Watt)</label>
+                    <input type="number" id="watt" placeholder="z.B. 150" value="400">
+                </div>
+
+                <!-- Usage Hours -->
+                <div class="eingabe-gruppe">
+                    <label for="stunden">Nutzung pro Tag (Stunden)</label>
+                    <input type="number" id="stunden" step="0.1" placeholder="z.B. 4.5" value="4">
+                </div>
+
+                <!-- Price per kWh -->
+                <div class="eingabe-gruppe">
+                    <label for="preis">Strompreis (Cent pro kWh)</label>
+                    <input type="number" id="preis" step="0.1" placeholder="z.B. 35" value="32">
+                </div>
+            </div>
+
+            <!-- 2. Annual Cost Card (Main Result) -->
+            <div class="bento-karte ergebnis-karte haupt">
+                <h3>Jahreskosten</h3>
+                <div class="betrag" id="jahreskosten">0,00 €</div>
+                <div class="verbrauch_badge">
+                    <span id="jahres_verbrauch">0</span> kWh pro Jahr
+                </div>
+            </div>
+
+            <!-- 3. Monthly Cost Card -->
+            <div class="bento-karte ergebnis-karte neben">
+                <h3>Monatskosten</h3>
+                <div class="betrag klein" id="monatskosten">0,00 €</div>
+            </div>
+
+            <!-- 4. Daily Cost Card -->
+            <div class="bento-karte ergebnis-karte neben">
+                <h3>Tageskosten</h3>
+                <div class="betrag klein" id="tageskosten">0,00 €</div>
+            </div>
+
+            <!-- 5. Dynamic Savings Tip Card -->
+            <div class="bento-karte tipp-karte">
+                <h3>💡 Spartipp</h3>
+                <p id="spar-tipp">Eine Reduzierung der Nutzung um 1 Stunde pro Tag spart bares Geld.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="logik.js"></script>
+</body>
+
+</html>

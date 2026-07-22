@@ -1,0 +1,153 @@
+/* Background Decoration */
+.hintergrund {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.farbfleck {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+}
+
+.farbfleck-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #bfdbfe 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+}
+
+.farbfleck-2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, #d1fae5 0%, transparent 70%);
+    bottom: -80px;
+    left: -80px;
+}
+
+/* Base Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f8;
+    color: #1e293b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* Layout Constraints */
+.rechner-behaelter {
+    width: 100%;
+    max-width: 800px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Bento Box Grid Layout */
+.bento-raster {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+/* Common Card Component */
+.bento-karte {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+/* Input Form Section */
+.eingabe-bereich {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+/* Form Fields */
+.eingabe-gruppe {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.eingabe-gruppe input {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+.eingabe-gruppe input:focus {
+    border-color: #2563eb;
+}
+
+/* Primary Hero Result Card */
+.ergebnis-karte.haupt {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0fdf4;
+}
+
+/* Secondary Metric & Recommendation Cards */
+.ergebnis-karte.neben, .tipp-karte {
+    grid-column: span 1;
+    text-align: center;
+}
+
+/* Metric Typography */
+.betrag {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2563eb;
+    font-variant-numeric: tabular-nums; /* Prevents shifting during value changes */
+}
+
+.betrag.klein { font-size: 1.5rem; }
+
+/* Consumption Badge styling */
+.verbrauch_badge {
+    background: #16a34a;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+}
+
+/* Responsive Layout: Tablet screens */
+@media (max-width: 768px) {
+    .eingabe-bereich { grid-template-columns: 1fr; }
+    .bento-raster { grid-template-columns: 1fr 1fr; }
+    .ergebnis-karte.neben { grid-column: span 1; }
+    .tipp-karte { grid-column: span 2; }
+}
+
+/* Responsive Layout: Mobile devices */
+@media (max-width: 480px) {
+    .bento-raster { grid-template-columns: 1fr; }
+    .ergebnis-karte.neben, .tipp-karte { grid-column: span 1; }
+}
