@@ -1,0 +1,446 @@
+/* ====================================================
+   DESIGN SYSTEM & VARIABLES
+   ==================================================== */
+:root {
+  --color-bg-dark: #090d16;
+  --color-card-bg: rgba(17, 24, 39, 0.55);
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+
+  /* Glowing accent colors */
+  --color-accent-blue: #00f2fe;
+  --color-accent-orange: #f59e0b;
+  --color-accent-red: #ef4444;
+  --color-accent-green: #10b981;
+
+  --font-family: 'Outfit', sans-serif;
+  --transition-speed: 0.3s;
+}
+
+/* ====================================================
+   GLOBAL RESET & BASICS
+   ==================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ====================================================
+   AMBIENT BACKGROUND GLOWS
+   ==================================================== */
+.ambient-glow {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+  animation: moveGlow 12s ease-in-out infinite alternate;
+}
+
+.glow-1 {
+  background: radial-gradient(circle, var(--color-accent-blue) 0%, rgba(0,0,0,0) 70%);
+  top: -10%;
+  left: -10%;
+}
+
+.glow-2 {
+  background: radial-gradient(circle, var(--color-accent-orange) 0%, rgba(0,0,0,0) 70%);
+  bottom: -10%;
+  right: -10%;
+  animation-delay: -6s;
+}
+
+@keyframes moveGlow {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(100px, 50px) scale(1.2);
+  }
+}
+
+/* ====================================================
+   DASHBOARD CONTAINER
+   ==================================================== */
+.dashboard-container {
+  width: 100%;
+  max-width: 950px;
+  z-index: 1;
+}
+
+/* Header */
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dash-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-top: 4px;
+}
+
+.system-status {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-indicator-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-accent-green);
+}
+
+.pulsing {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; box-shadow: 0 0 12px var(--color-accent-green); }
+}
+
+.time-widget {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+}
+
+/* ====================================================
+   GRID LAYOUT
+   ==================================================== */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card General */
+.dash-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: border-color var(--transition-speed);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-icon {
+  font-size: 1.25rem;
+}
+
+.card-header h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* ====================================================
+   CLIMATE THERMOSTAT CARD
+   ==================================================== */
+.thermostat-widget {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thermostat-dial {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.dial-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.04);
+  stroke-width: 8;
+}
+
+.dial-fill {
+  fill: none;
+  stroke: var(--color-accent-blue);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke var(--transition-speed), stroke-dashoffset var(--transition-speed) ease;
+}
+
+.dial-indicator {
+  fill: #fff;
+  filter: drop-shadow(0 0 6px var(--color-accent-blue));
+  transform-origin: 100px 100px;
+  transition: transform var(--transition-speed) ease;
+}
+
+.thermostat-info {
+  text-align: center;
+  z-index: 2;
+}
+
+.temp-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-secondary);
+  display: block;
+}
+
+.temp-val {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  display: block;
+  margin: 2px 0;
+}
+
+.climate-mode {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent-blue);
+  background: rgba(0, 242, 254, 0.08);
+  padding: 2px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  transition: color var(--transition-speed), background var(--transition-speed);
+}
+
+.climate-controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn-ctrl {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background var(--transition-speed), transform 0.1s;
+}
+
+.btn-ctrl:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-ctrl:active {
+  transform: scale(0.95);
+}
+
+/* ====================================================
+   POWER GRAPH CARD
+   ==================================================== */
+.power-stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.chart-container {
+  height: 90px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.live-chart {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-line {
+  transition: d 0.3s ease;
+}
+
+.chart-area {
+  transition: d 0.3s ease;
+}
+
+/* ====================================================
+   DEVICE SWITCH GRID
+   ==================================================== */
+.devices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.device-switch {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-speed);
+}
+
+.switch-icon {
+  font-size: 1.5rem;
+  opacity: 0.6;
+  transition: opacity var(--transition-speed);
+}
+
+.switch-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.switch-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+/* Active State Styles */
+.device-switch.active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.device-switch.active .switch-icon {
+  opacity: 1;
+}
+
+/* Light Active colors */
+#sw-light-living.active { border-color: var(--color-accent-orange); box-shadow: 0 0 12px rgba(245, 158, 11, 0.15); }
+#sw-light-living.active .switch-status { color: var(--color-accent-orange); }
+
+#sw-light-bed.active { border-color: var(--color-accent-orange); box-shadow: 0 0 12px rgba(245, 158, 11, 0.15); }
+#sw-light-bed.active .switch-status { color: var(--color-accent-orange); }
+
+/* AC blue color */
+#sw-ac.active { border-color: var(--color-accent-blue); box-shadow: 0 0 12px rgba(0, 242, 254, 0.15); }
+#sw-ac.active .switch-status { color: var(--color-accent-blue); }
+
+/* Security lock green */
+#sw-lock.active { border-color: var(--color-accent-green); box-shadow: 0 0 12px rgba(16, 119, 129, 0.15); }
+#sw-lock.active .switch-status { color: var(--color-accent-green); }
+
+/* ====================================================
+   LOGS STREAM
+   ==================================================== */
+.logs-stream {
+  height: 140px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 6px;
+  font-family: monospace;
+}
+
+.logs-stream::-webkit-scrollbar {
+  width: 4px;
+}
+
+.logs-stream::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+.log-entry {
+  font-size: 0.8rem;
+  display: flex;
+  gap: 12px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  animation: logFadeIn 0.3s ease-out;
+}
+
+@keyframes logFadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.log-time {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.log-msg {
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartHome Control Panel</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="dashboard-container">
+
+    <!-- Top Bar -->
+    <header class="dash-header">
+      <div class="header-left">
+        <span class="system-status">
+          <span class="status-indicator-dot pulsing"></span>
+          System Online
+        </span>
+        <h1>Control Panel</h1>
+      </div>
+      <div class="header-right">
+        <div class="time-widget" id="time-widget">13. Juni 2026 · 01:30:00</div>
+      </div>
+    </header>
+
+    <!-- Grid Layout -->
+    <main class="dash-grid">
+
+      <!-- Climate Thermostat Card -->
+      <section class="dash-card card-climate" id="card-climate">
+        <div class="card-header">
+          <span class="card-icon">🌡️</span>
+          <h2>Klima &amp; Heizung</h2>
+        </div>
+
+        <div class="thermostat-widget">
+          <!-- Thermostat SVG Dial -->
+          <svg class="thermostat-dial" viewBox="0 0 200 200">
+            <circle class="dial-bg" cx="100" cy="100" r="80"></circle>
+            <circle class="dial-fill" id="dial-fill" cx="100" cy="100" r="80" stroke-dasharray="502" stroke-dashoffset="300"></circle>
+            <circle class="dial-indicator" id="dial-indicator" cx="100" cy="20" r="8"></circle>
+          </svg>
+
+          <div class="thermostat-info">
+            <span class="temp-label">Ziel-Temperatur</span>
+            <span class="temp-val" id="temp-val">21.5°C</span>
+            <span class="climate-mode" id="climate-mode">Eco-Modus</span>
+          </div>
+        </div>
+
+        <div class="climate-controls">
+          <button class="btn-ctrl" id="temp-down" title="Temperatur senken">−</button>
+          <button class="btn-ctrl" id="temp-up" title="Temperatur erhöhen">+</button>
+        </div>
+      </section>
+
+      <!-- Live Power Grid Card -->
+      <section class="dash-card card-power">
+        <div class="card-header">
+          <span class="card-icon">⚡</span>
+          <h2>Stromnetz (Live)</h2>
+        </div>
+
+        <div class="power-stats">
+          <div class="stat-item">
+            <span class="stat-num" id="power-val">342 W</span>
+            <span class="stat-label">Aktueller Verbrauch</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">4.2 kWh</span>
+            <span class="stat-label">Heute gesamt</span>
+          </div>
+        </div>
+
+        <!-- Realtime wave chart -->
+        <div class="chart-container">
+          <svg class="live-chart" viewBox="0 0 300 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(0, 242, 254, 0.4)"/>
+                <stop offset="100%" stop-color="rgba(0, 242, 254, 0)"/>
+              </linearGradient>
+            </defs>
+            <path class="chart-area" id="chart-area" fill="url(#chart-grad)" d="M0 100 L300 100 Z"></path>
+            <path class="chart-line" id="chart-line" d="M0 50 L300 50" stroke="#00f2fe" stroke-width="2" fill="none"></path>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Device Control switches -->
+      <section class="dash-card card-devices">
+        <div class="card-header">
+          <span class="card-icon">🔌</span>
+          <h2>Gerätesteuerung</h2>
+        </div>
+
+        <div class="devices-grid">
+          <!-- Device Switch 1 -->
+          <button class="device-switch active" id="sw-light-living" data-device="Wohnzimmer Licht">
+            <div class="switch-icon">💡</div>
+            <span class="switch-name">Wohnzimmer Licht</span>
+            <span class="switch-status">AN</span>
+          </button>
+
+          <!-- Device Switch 2 -->
+          <button class="device-switch" id="sw-light-bed" data-device="Schlafzimmer Licht">
+            <div class="switch-icon">💡</div>
+            <span class="switch-name">Schlafzimmer Licht</span>
+            <span class="switch-status">AUS</span>
+          </button>
+
+          <!-- Device Switch 3 -->
+          <button class="device-switch active" id="sw-ac" data-device="Klimaanlage">
+            <div class="switch-icon">❄️</div>
+            <span class="switch-name">Klimaanlage</span>
+            <span class="switch-status">AN</span>
+          </button>
+
+          <!-- Device Switch 4 -->
+          <button class="device-switch active" id="sw-lock" data-device="Haustür Schloss">
+            <div class="switch-icon">🔒</div>
+            <span class="switch-name">Sicherheitsschloss</span>
+            <span class="switch-status">VERRIEGELT</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Security logs stream -->
+      <section class="dash-card card-logs">
+        <div class="card-header">
+          <span class="card-icon">🛡️</span>
+          <h2>Aktivitäts-Log</h2>
+        </div>
+
+        <div class="logs-stream" id="logs-stream">
+          <!-- Stream elements added via JS -->
+          <div class="log-entry">
+            <span class="log-time">01:25:04</span>
+            <span class="log-msg">Smart Lock verriegelt</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">01:24:12</span>
+            <span class="log-msg">Klimaanlage in Eco-Modus gewechselt</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">01:00:00</span>
+            <span class="log-msg">Systemdiagnose durchgeführt: OK</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
