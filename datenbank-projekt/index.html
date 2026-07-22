@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer Pro — Persönlicher Dokumenten-Manager</title>
+    <meta name="description" content="Verwalte wichtige Briefe, Kreditkarten, Verträge und Abonnements sicher und privat. Kalenderansicht, PDF-Import, OCR und vieles mehr.">
+    <meta name="theme-color" content="#0f1629">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- DRAG & DROP OVERLAY -->
+    <div id="drag-overlay" class="drag-overlay">
+        <div class="drag-overlay-content">
+            <i data-lucide="upload-cloud"></i>
+            <h2>PDF hier ablegen</h2>
+            <p>Die Datei wird automatisch analysiert und importiert.</p>
+        </div>
+    </div>
+
+    <div class="app-container">
+
+        <!-- ====================================================
+             SIDEBAR NAVIGATION
+             ==================================================== -->
+        <aside class="sidebar" id="app-sidebar">
+            <div>
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <span class="logo-text">Organizer Pro</span>
+                </div>
+
+                <nav>
+                    <ul class="nav-menu">
+                        <li class="nav-item active" id="nav-dashboard">
+                            <a href="#/dashboard">
+                                <i data-lucide="layout-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="nav-letters">
+                            <a href="#/letters">
+                                <i data-lucide="mail"></i>
+                                <span>Briefe &amp; Dokumente</span>
+                                <span class="nav-badge" id="nav-badge-letters" style="display:none;"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="nav-cards">
+                            <a href="#/cards">
+                                <i data-lucide="credit-card"></i>
+                                <span>Kreditkarten</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="nav-contracts">
+                            <a href="#/contracts">
+                                <i data-lucide="file-text"></i>
+                                <span>Verträge &amp; Abos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="nav-calendar">
+                            <a href="#/calendar">
+                                <i data-lucide="calendar"></i>
+                                <span>Kalender</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-backup-actions">
+                    <button class="btn-sidebar export-btn" id="btn-export-backup" title="Alle Daten als JSON exportieren">
+                        <i data-lucide="download"></i>
+                        <span>Backup exportieren</span>
+                    </button>
+                    <button class="btn-sidebar import-btn" id="btn-import-backup" title="Daten aus Backup wiederherstellen">
+                        <i data-lucide="upload"></i>
+                        <span>Backup importieren</span>
+                    </button>
+                    <input type="file" id="backup-file-input" style="display: none;" accept=".json">
+                </div>
+                <p>&copy; 2026 Organizer Pro</p>
+                <div class="sidebar-status">
+                    <span class="status-dot"></span>
+                    <span>Lokal &amp; Privat gespeichert</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ====================================================
+             MAIN CONTENT
+             ==================================================== -->
+        <main class="main-content">
+
+            <!-- GLOBAL HEADER -->
+            <header class="main-header">
+                <div class="search-bar-container">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="global-search" class="search-input" placeholder="Suche nach Absender, Bank, Tarif... (Ctrl+K)">
+                    <span class="search-shortcut-hint">Ctrl+K</span>
+                </div>
+
+                <div class="header-right">
+                    <!-- Notification Bell -->
+                    <div class="notification-wrapper">
+                        <button class="notification-bell" id="btn-notification-bell" title="Benachrichtigungen" aria-label="Benachrichtigungen anzeigen">
+                            <i data-lucide="bell"></i>
+                            <span class="notification-count" id="notification-count"></span>
+                        </button>
+
+                        <div class="notification-dropdown" id="notification-dropdown">
+                            <div class="notif-header">
+                                <h4>Benachrichtigungen</h4>
+                                <span id="notif-count-text">0 aktuell</span>
+                            </div>
+                            <div class="notif-list" id="notif-list">
+                                <div class="notif-empty">
+                                    <i data-lucide="check-circle" style="width:28px;height:28px;color:var(--color-success);margin-bottom:8px;"></i>
+                                    <p>Alles im grünen Bereich!</p>
+                                </div>
+                            </div>
+                            <div class="notif-footer">
+                                <a href="#/calendar" id="notif-goto-calendar">Alle Fristen im Kalender ansehen →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button class="btn-icon" id="btn-theme-toggle" title="Helles/Dunkles Design umschalten" aria-label="Theme umschalten">
+                        <i data-lucide="sun" id="theme-icon"></i>
+                    </button>
+
+                    <!-- Keyboard Shortcuts Info -->
+                    <button class="btn-icon" id="btn-shortcuts" title="Tastaturkürzel anzeigen (?)" aria-label="Tastaturkürzel">
+                        <i data-lucide="keyboard"></i>
+                    </button>
+
+                    <div class="action-menu">
+                        <!-- PDF Upload -->
+                        <button class="btn btn-secondary" id="btn-trigger-pdf-upload" onclick="document.getElementById('pdf-file-input').click();" title="PDF importieren und analysieren">
+                            <i data-lucide="upload-cloud"></i>
+                            <span>PDF importieren</span>
+                        </button>
+                        <input type="file" id="pdf-file-input" style="display: none;" accept="application/pdf">
+
+                        <!-- Add Item -->
+                        <button class="btn btn-primary" id="btn-add-item-modal" title="Neuen Eintrag hinzufügen (N)">
+                            <i data-lucide="plus-circle"></i>
+                            <span>Hinzufügen</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- PAGE VIEWS CONTAINER -->
+            <div class="page-container">
+
+                <!-- ============================================
+                     1. DASHBOARD VIEW
+                     ============================================ -->
+                <section id="view-dashboard" class="page-view active">
+                    <div class="page-header">
+                        <div class="page-header-text">
+                            <h1 class="page-title" id="dashboard-greeting">Willkommen zurück</h1>
+                            <p class="page-subtitle" id="dashboard-date">Hier ist deine Übersicht für heute.</p>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="dashboard-grid">
+                        <div class="glass-card stat-card card-animate" id="stat-card-letters" style="cursor:pointer;" onclick="window.location.hash='#/letters'">
+                            <div class="stat-icon danger">
+                                <i data-lucide="alert-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Aktion erforderlich</span>
+                                <span class="stat-value" id="count-action-letters">0</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card stat-card card-animate" id="stat-card-cards" style="cursor:pointer;" onclick="window.location.hash='#/cards'">
+                            <div class="stat-icon warning">
+                                <i data-lucide="credit-card"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Karten laufen bald ab</span>
+                                <span class="stat-value" id="count-expiring-cards">0</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card stat-card card-animate" id="stat-card-contracts" style="cursor:pointer;" onclick="window.location.hash='#/contracts'">
+                            <div class="stat-icon primary">
+                                <i data-lucide="bell"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Vertrags-Fristen</span>
+                                <span class="stat-value" id="count-upcoming-contracts">0</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card stat-card card-animate" id="stat-card-costs" style="cursor:pointer;" onclick="window.location.hash='#/contracts'">
+                            <div class="stat-icon success">
+                                <i data-lucide="euro"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Monatliche Fixkosten</span>
+                                <span class="stat-value" id="total-monthly-costs">0,00 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donut Chart + Kostenaufteilung -->
+                    <div class="glass-card card-animate" style="margin-bottom: 1.5rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.5rem;">
+                            <h2 class="section-title" style="margin-bottom:0;">
+                                <i data-lucide="pie-chart"></i>
+                                <span>Monatliche Kostenaufteilung</span>
+                            </h2>
+                            <div class="cost-percent-badge" id="dashboard-yearly-cost"></div>
+                        </div>
+                        <div class="donut-chart-wrapper">
+                            <div class="donut-chart-canvas-container">
+                                <canvas id="donut-chart-canvas" width="160" height="160"></canvas>
+                                <div class="donut-center-text">
+                                    <span class="donut-center-value" id="donut-center-value">0 €</span>
+                                    <span class="donut-center-label">/ Monat</span>
+                                </div>
+                            </div>
+                            <div class="donut-legend" id="donut-legend">
+                                <!-- Dynamic legend items -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Sections -->
+                    <div class="dashboard-sections">
+                        <!-- Upcoming Deadlines -->
+                        <div class="glass-card card-animate">
+                            <h2 class="section-title">
+                                <i data-lucide="clock"></i>
+                                <span>Kommende Zahlungen &amp; Fristen</span>
+                            </h2>
+                            <div class="items-list" id="dashboard-reminders-list">
+                                <p class="text-muted" style="text-align:center; padding:2rem 0;">Keine ausstehenden Termine.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="glass-card card-animate">
+                            <h2 class="section-title">
+                                <i data-lucide="activity"></i>
+                                <span>Letzte Aktivitäten</span>
+                            </h2>
+                            <div class="items-list" id="dashboard-activities-list">
+                                <!-- Dynamic entries -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================
+                     2. LETTERS VIEW
+                     ============================================ -->
+                <section id="view-letters" class="page-view">
+                    <div class="page-header">
+                        <div class="page-header-text">
+                            <h1 class="page-title">Briefe &amp; Dokumente</h1>
+                            <p class="page-subtitle">Verwalte behördliche Briefe, Rechnungen und Fristen.</p>
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <span class="filter-bar-title">Filter:</span>
+                        <select id="filter-letter-status" class="filter-select">
+                            <option value="all">Alle Stati</option>
+                            <option value="read">Gelesen</option>
+                            <option value="unread">Ungelesen</option>
+                            <option value="action_required">Aktion erforderlich</option>
+                        </select>
+                        <select id="filter-letter-date" class="filter-select">
+                            <option value="newest">Neueste zuerst</option>
+                            <option value="oldest">Älteste zuerst</option>
+                        </select>
+                        <select id="filter-letter-tag" class="filter-select">
+                            <option value="all">Alle Tags</option>
+                            <option value="steuer">Steuer</option>
+                            <option value="versicherung">Versicherung</option>
+                            <option value="behoerde">Behörde</option>
+                            <option value="gesundheit">Gesundheit</option>
+                            <option value="wohnen">Wohnen</option>
+                            <option value="arbeit">Arbeit</option>
+                        </select>
+                    </div>
+
+                    <div class="category-grid" id="letters-grid">
+                        <!-- Dynamic items -->
+                    </div>
+                </section>
+
+                <!-- ============================================
+                     3. CREDIT CARDS VIEW
+                     ============================================ -->
+                <section id="view-cards" class="page-view">
+                    <div class="page-header">
+                        <div class="page-header-text">
+                            <h1 class="page-title">Kreditkarten</h1>
+                            <p class="page-subtitle">Behalte Kreditlimits und Ablaufdaten im Blick.</p>
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <span class="filter-bar-title">Filter:</span>
+                        <select id="filter-card-status" class="filter-select">
+                            <option value="all">Alle Stati</option>
+                            <option value="active">Aktiv</option>
+                            <option value="expiring_soon">Läuft bald ab (&lt; 3 Mon.)</option>
+                            <option value="expired">Abgelaufen</option>
+                        </select>
+                    </div>
+
+                    <div class="category-grid" id="cards-grid">
+                        <!-- Dynamic items -->
+                    </div>
+                </section>
+
+                <!-- ============================================
+                     4. CONTRACTS VIEW
+                     ============================================ -->
+                <section id="view-contracts" class="page-view">
+                    <div class="page-header">
+                        <div class="page-header-text">
+                            <h1 class="page-title">Verträge &amp; Abos</h1>
+                            <p class="page-subtitle">Aktive Mitgliedschaften, Kündigungstermine und Kosten.</p>
+                        </div>
+                        <div class="glass-card" style="padding:0.65rem 1.1rem; display:flex; align-items:center; gap:10px; flex-shrink:0;">
+                            <span class="detail-label" style="margin:0;">Gesamt/Monat:</span>
+                            <span class="stat-value" id="contracts-total-cost" style="font-size:1.2rem;color:var(--color-success);">0,00 €</span>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown Widget -->
+                    <div class="glass-card" style="margin-bottom:1.5rem;">
+                        <div class="segmented-progress-bar" id="contracts-cost-bar">
+                            <!-- Segments injected dynamically -->
+                        </div>
+                        <div class="cost-legend" id="contracts-cost-legend">
+                            <!-- Legend items injected dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <span class="filter-bar-title">Filter:</span>
+                        <select id="filter-contract-status" class="filter-select">
+                            <option value="all">Alle Stati</option>
+                            <option value="active">Aktiv</option>
+                            <option value="cancelled">Gekündigt</option>
+                        </select>
+                        <select id="filter-contract-sort" class="filter-select">
+                            <option value="cost_desc">Kosten: Hoch → Niedrig</option>
+                            <option value="cost_asc">Kosten: Niedrig → Hoch</option>
+                            <option value="deadline">Nächste Kündigungsfrist</option>
+                        </select>
+                    </div>
+
+                    <div class="category-grid" id="contracts-grid">
+                        <!-- Dynamic items -->
+                    </div>
+                </section>
+
+                <!-- ============================================
+                     5. CALENDAR VIEW
+                     ============================================ -->
+                <section id="view-calendar" class="page-view">
+                    <div class="page-header">
+                        <div class="page-header-text">
+                            <h1 class="page-title">Kalender</h1>
+                            <p class="page-subtitle">Alle Fristen, Ablaufdaten und Kündigungstermine auf einen Blick.</p>
+                        </div>
+                    </div>
+
+                    <div class="calendar-header">
+                        <div class="calendar-nav">
+                            <button class="btn-calendar-nav" id="btn-cal-prev" title="Vorheriger Monat">
+                                <i data-lucide="chevron-left"></i>
+                            </button>
+                            <h2 class="calendar-month-title" id="calendar-month-title">Juni 2026</h2>
+                            <button class="btn-calendar-nav" id="btn-cal-next" title="Nächster Monat">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                            <button class="btn btn-secondary" id="btn-cal-today" style="padding:0.45rem 0.875rem;font-size:0.8rem;">Heute</button>
+                        </div>
+                        <div class="calendar-legend">
+                            <span class="cal-legend-item">
+                                <span class="cal-legend-dot" style="background:var(--color-danger);"></span>
+                                Brief-Frist
+                            </span>
+                            <span class="cal-legend-item">
+                                <span class="cal-legend-dot" style="background:var(--color-primary);"></span>
+                                Kreditkarte
+                            </span>
+                            <span class="cal-legend-item">
+                                <span class="cal-legend-dot" style="background:var(--color-warning);"></span>
+                                Vertrags-Kündigung
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-grid-wrapper">
+                        <div class="calendar-weekdays">
+                            <div class="calendar-weekday">Mo</div>
+                            <div class="calendar-weekday">Di</div>
+                            <div class="calendar-weekday">Mi</div>
+                            <div class="calendar-weekday">Do</div>
+                            <div class="calendar-weekday">Fr</div>
+                            <div class="calendar-weekday">Sa</div>
+                            <div class="calendar-weekday">So</div>
+                        </div>
+                        <div class="calendar-days" id="calendar-days-grid">
+                            <!-- Dynamically generated -->
+                        </div>
+                    </div>
+
+                    <!-- Upcoming events list below calendar -->
+                    <div style="margin-top:2rem;">
+                        <h2 class="section-title">
+                            <i data-lucide="list"></i>
+                            <span>Nächste Ereignisse (90 Tage)</span>
+                        </h2>
+                        <div class="calendar-upcoming" id="calendar-upcoming-list">
+                            <!-- Dynamic entries -->
+                        </div>
+                    </div>
+                </section>
+
+            </div><!-- /page-container -->
+        </main>
+    </div><!-- /app-container -->
+
+    <!-- Mobile FAB -->
+    <button class="fab-button" id="fab-add-btn" title="Neuen Eintrag hinzufügen" aria-label="Hinzufügen">
+        <i data-lucide="plus"></i>
+    </button>
+
+    <!-- ============================================================
+         MODAL: ADD / EDIT ENTRY
+         ============================================================ -->
+    <div class="modal-overlay" id="modal-add-edit">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-add-edit-title">Eintrag hinzufügen</h3>
+                <button class="modal-close" id="btn-close-add-modal" aria-label="Schließen">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Category Tabs -->
+                <div class="category-selection-tabs" id="modal-category-tabs">
+                    <button class="category-tab-btn active" data-cat="letter" id="tab-cat-letter">
+                        <i data-lucide="mail" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Brief / Dok
+                    </button>
+                    <button class="category-tab-btn" data-cat="card" id="tab-cat-card">
+                        <i data-lucide="credit-card" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Kreditkarte
+                    </button>
+                    <button class="category-tab-btn" data-cat="contract" id="tab-cat-contract">
+                        <i data-lucide="file-text" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Vertrag / Abo
+                    </button>
+                </div>
+
+                <form id="organizer-form">
+                    <input type="hidden" id="form-item-id">
+                    <input type="hidden" id="form-item-category" value="letter">
+
+                    <!-- ==================== LETTER FIELDS ==================== -->
+                    <div class="form-fields-group" id="fields-letter">
+                        <div class="form-group">
+                            <label for="letter-sender" class="form-label">Absender *</label>
+                            <input type="text" id="letter-sender" class="form-control" placeholder="z.B. Finanzamt, Vermieter, DAK..." required>
+                        </div>
+
+                        <div class="form-group row">
+                            <div>
+                                <label for="letter-date" class="form-label">Briefdatum *</label>
+                                <input type="date" id="letter-date" class="form-control" required>
+                            </div>
+                            <div>
+                                <label for="letter-status" class="form-label">Status *</label>
+                                <select id="letter-status" class="form-control">
+                                    <option value="unread">Ungelesen</option>
+                                    <option value="read">Gelesen</option>
+                                    <option value="action_required">Aktion erforderlich</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="letter-deadline-group">
+                            <label for="letter-deadline" class="form-label">Frist / Aktionstermin (optional)</label>
+                            <input type="date" id="letter-deadline" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="letter-tags" class="form-label">Tags (optional)</label>
+                            <select id="letter-tags" class="form-control">
+                                <option value="">Kein Tag</option>
+                                <option value="steuer">🟡 Steuer</option>
+                                <option value="versicherung">🟣 Versicherung</option>
+                                <option value="behoerde">🔴 Behörde</option>
+                                <option value="gesundheit">🟢 Gesundheit</option>
+                                <option value="wohnen">🔵 Wohnen</option>
+                                <option value="arbeit">🟠 Arbeit</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="letter-notes" class="form-label">Notizen</label>
+                            <textarea id="letter-notes" class="form-control" placeholder="Notizen oder Fristdetails eintragen..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- ==================== CARD FIELDS ==================== -->
+                    <div class="form-fields-group" id="fields-card" style="display: none;">
+                        <div class="form-group row">
+                            <div>
+                                <label for="card-bank" class="form-label">Bank / Herausgeber *</label>
+                                <input type="text" id="card-bank" class="form-control" placeholder="z.B. DKB, N26, Sparkasse">
+                            </div>
+                            <div>
+                                <label for="card-name" class="form-label">Kartenname *</label>
+                                <input type="text" id="card-name" class="form-control" placeholder="z.B. Visa Gold, Mastercard">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div>
+                                <label for="card-expiry-month" class="form-label">Ablaufmonat (MM) *</label>
+                                <input type="number" id="card-expiry-month" class="form-control" min="1" max="12" placeholder="08">
+                            </div>
+                            <div>
+                                <label for="card-expiry-year" class="form-label">Ablaufjahr (YYYY) *</label>
+                                <input type="number" id="card-expiry-year" class="form-control" min="2024" max="2060" placeholder="2028">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div>
+                                <label for="card-limit" class="form-label">Kreditlimit (€) *</label>
+                                <input type="number" id="card-limit" class="form-control" min="0" placeholder="5000">
+                            </div>
+                            <div>
+                                <label for="card-status" class="form-label">Status *</label>
+                                <select id="card-status" class="form-control">
+                                    <option value="active">Aktiv</option>
+                                    <option value="expired">Abgelaufen</option>
+                                    <option value="inactive">Inaktiv</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="card-notes" class="form-label">Notizen (optional)</label>
+                            <textarea id="card-notes" class="form-control" placeholder="z.B. Verwendungszweck, PIN-Hinweis, Kontaktdaten..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- ==================== CONTRACT FIELDS ==================== -->
+                    <div class="form-fields-group" id="fields-contract" style="display: none;">
+                        <div class="form-group row">
+                            <div>
+                                <label for="contract-provider" class="form-label">Anbieter / Dienst *</label>
+                                <input type="text" id="contract-provider" class="form-control" placeholder="z.B. Vodafone, Netflix, FitX">
+                            </div>
+                            <div>
+                                <label for="contract-plan" class="form-label">Tarif- / Vertragsname *</label>
+                                <input type="text" id="contract-plan" class="form-control" placeholder="z.B. Mobilfunk M, Premium-Abo">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div>
+                                <label for="contract-customer-num" class="form-label">Kundennummer</label>
+                                <input type="text" id="contract-customer-num" class="form-control" placeholder="Kundennummer oder Vertrags-ID">
+                            </div>
+                            <div>
+                                <label for="contract-cost" class="form-label">Monatliche Kosten (€) *</label>
+                                <input type="number" id="contract-cost" class="form-control" min="0" step="0.01" placeholder="19.99">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div>
+                                <label for="contract-deadline" class="form-label">Nächste Kündigungsfrist</label>
+                                <input type="date" id="contract-deadline" class="form-control">
+                            </div>
+                            <div>
+                                <label for="contract-status" class="form-label">Status *</label>
+                                <select id="contract-status" class="form-control">
+                                    <option value="active">Aktiv</option>
+                                    <option value="cancelled">Gekündigt</option>
+                                    <option value="paused">Pausiert</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Attachment -->
+                    <div class="form-group" style="margin-top:1.25rem; border-top:1px dashed var(--border-color); padding-top:1rem;">
+                        <label for="form-pdf-attachment" class="form-label">Dokument / Bild anhängen (optional)</label>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <input type="file" id="form-pdf-attachment" class="form-control" accept="application/pdf,image/jpeg,image/png,image/webp,image/jpg" style="padding:0.35rem;">
+                            <button type="button" class="btn btn-danger" id="btn-remove-attachment" style="display:none; padding:0.6rem; width:36px; height:36px; border-radius:var(--radius-sm); flex-shrink:0;" title="Anhang entfernen">
+                                <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
+                            </button>
+                        </div>
+                        <span id="form-pdf-status" style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;display:block;">Kein Dokument angehängt.</span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-cancel-add-modal">Abbrechen</button>
+                <button type="submit" form="organizer-form" class="btn btn-primary" id="btn-save-item">
+                    <i data-lucide="save" style="width:15px;height:15px;"></i>
+                    Speichern
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODAL: PDF PARSING PREVIEW
+         ============================================================ -->
+    <div class="modal-overlay" id="modal-pdf-review">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i data-lucide="file-scan" style="width:18px;height:18px;display:inline;vertical-align:middle;margin-right:6px;color:var(--color-primary);"></i>
+                    PDF-Daten überprüfen
+                </h3>
+                <button class="modal-close" id="btn-close-pdf-modal" aria-label="Schließen">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="import-preview-container">
+                    <div class="parsed-form-area">
+                        <h4 style="font-size:0.9rem; font-weight:700; color:var(--color-primary);">Erkannte Daten:</h4>
+
+                        <div class="form-group">
+                            <label class="form-label">Dokumenttyp anpassen</label>
+                            <div class="category-selection-tabs" id="pdf-category-tabs">
+                                <button class="category-tab-btn" data-cat="letter" id="pdf-tab-letter">Brief</button>
+                                <button class="category-tab-btn" data-cat="card" id="pdf-tab-card">Kreditkarte</button>
+                                <button class="category-tab-btn" data-cat="contract" id="pdf-tab-contract">Vertrag</button>
+                            </div>
+                        </div>
+
+                        <form id="pdf-review-form">
+                            <div id="pdf-review-fields-container"></div>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h4 style="font-size:0.9rem; font-weight:700; color:var(--color-primary);">Erkennungs-Protokoll:</h4>
+                        <div class="raw-snippets-area" id="pdf-snippets-list"></div>
+
+                        <div style="margin-top:1rem; padding:0.75rem; border-radius:var(--radius-sm); background:var(--bg-surface-hover); font-size:0.72rem; border:1px solid var(--border-color);">
+                            <p style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">
+                                <i data-lucide="info" style="width:12px;height:12px;display:inline;vertical-align:middle;margin-right:3px;"></i>
+                                Hinweis zur OCR:
+                            </p>
+                            <p class="text-muted" style="line-height:1.4;">Die clientseitige Erkennung liest den Text im PDF und schlägt Werte vor. Bitte überprüfe alle Felder sorgfältig.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-cancel-pdf-modal">Verwerfen</button>
+                <button type="button" class="btn btn-primary" id="btn-save-pdf-import">
+                    <i data-lucide="check" style="width:15px;height:15px;"></i>
+                    Übernehmen &amp; Speichern
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODAL: CONFIRM DELETE
+         ============================================================ -->
+    <div class="modal-overlay" id="modal-confirm-delete">
+        <div class="modal-content" style="max-width:400px;">
+            <div class="modal-header">
+                <h3 class="modal-title" style="color:var(--color-danger);">
+                    <i data-lucide="trash-2" style="width:18px;height:18px;display:inline;vertical-align:middle;margin-right:6px;"></i>
+                    Eintrag löschen?
+                </h3>
+                <button class="modal-close" id="btn-close-delete-modal" aria-label="Schließen">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color:var(--text-secondary);">Möchtest du diesen Eintrag wirklich unwiderruflich löschen?</p>
+                <div style="margin-top:1rem; padding:0.875rem; background:var(--color-danger-bg); border:1px solid hsla(0,84%,60%,0.3); border-radius:var(--radius-sm);">
+                    <p style="font-weight:700; color:var(--color-danger); font-size:0.9rem;" id="delete-item-name"></p>
+                </div>
+                <input type="hidden" id="delete-item-id">
+                <input type="hidden" id="delete-item-category">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-cancel-delete-modal">Abbrechen</button>
+                <button class="btn btn-danger" id="btn-confirm-delete">
+                    <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
+                    Endgültig löschen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODAL: ATTACHMENT VIEWER
+         ============================================================ -->
+    <div class="modal-overlay" id="modal-attachment-viewer">
+        <div class="modal-content attachment-viewer-modal">
+            <div class="modal-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i data-lucide="paperclip" style="width:18px;height:18px;color:var(--color-primary);"></i>
+                    <h3 class="modal-title" id="attachment-viewer-title">Anhang anzeigen</h3>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <button class="btn btn-secondary" id="btn-download-attachment" style="padding:0.4rem 0.75rem; font-size:0.78rem;" title="Herunterladen">
+                        <i data-lucide="download" style="width:14px;height:14px;"></i>
+                        Download
+                    </button>
+                    <button class="modal-close" id="btn-close-attachment-viewer" aria-label="Schließen">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body attachment-viewer-body" id="attachment-viewer-body">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODAL: KEYBOARD SHORTCUTS
+         ============================================================ -->
+    <div class="modal-overlay" id="modal-shortcuts">
+        <div class="modal-content" style="max-width:560px;">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i data-lucide="keyboard" style="width:18px;height:18px;display:inline;vertical-align:middle;margin-right:6px;color:var(--color-primary);"></i>
+                    Tastaturkürzel
+                </h3>
+                <button class="modal-close" id="btn-close-shortcuts" aria-label="Schließen">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Suche fokussieren</span>
+                        <div class="shortcut-keys"><kbd>Ctrl</kbd><kbd>K</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Neuer Eintrag</span>
+                        <div class="shortcut-keys"><kbd>N</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Dashboard</span>
+                        <div class="shortcut-keys"><kbd>1</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Briefe &amp; Dokumente</span>
+                        <div class="shortcut-keys"><kbd>2</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Kreditkarten</span>
+                        <div class="shortcut-keys"><kbd>3</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Verträge &amp; Abos</span>
+                        <div class="shortcut-keys"><kbd>4</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Kalender</span>
+                        <div class="shortcut-keys"><kbd>5</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Modal schließen</span>
+                        <div class="shortcut-keys"><kbd>Esc</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Shortcuts anzeigen</span>
+                        <div class="shortcut-keys"><kbd>?</kbd></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Theme umschalten</span>
+                        <div class="shortcut-keys"><kbd>T</kbd></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" style="position:fixed; bottom:1.5rem; right:1.5rem; z-index:9999; display:flex; flex-direction:column; gap:0.5rem; pointer-events:none;"></div>
+
+    <!-- ============================================================
+         SCRIPTS
+         ============================================================ -->
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- App Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer Pro — Details</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+</head>
+<body class="light-mode">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="detail-container">
+        <!-- HEADER -->
+        <header class="detail-header">
+            <button class="btn-back" onclick="window.location.href='index.html'">
+                <i data-lucide="arrow-left"></i> Zurück
+            </button>
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <h2 style="margin:0; font-size:1.2rem; color:var(--text-secondary); display:flex; align-items:center; gap:0.5rem;">
+                    <i data-lucide="layers"></i> Organizer Pro
+                </h2>
+                <button class="btn-icon" id="btn-theme-toggle" title="Theme wechseln">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <main id="detail-content">
+            <!-- Rendered via JS -->
+            <div style="text-align: center; padding: 4rem;">
+                <i data-lucide="loader-2" class="spin" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+                <p style="margin-top: 1rem; color: var(--text-secondary);">Lade Details...</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/detail.js"></script>
+</body>
+</html>
