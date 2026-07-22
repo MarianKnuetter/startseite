@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-Shirt Druck – Dein Style, Dein Design</title>
+  <meta name="description"
+    content="T-Shirts, Hoodies und mehr individuell gestalten und bedrucken lassen. Modern, schnell, günstig.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ============ HEADER / NAVIGATION ============ -->
+  <header class="header" id="header">
+    <nav class="navbar">
+      <a href="#" class="nav-logo">DADO`s<span>DRUCK</span></a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#produkte">Produkte</a>
+        <a href="#so-funktionierts">So geht's</a>
+        <a href="#vorteile">Vorteile</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="cart-toggle-btn" id="cart-toggle-btn" aria-label="Warenkorb öffnen">
+          <svg class="cart-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" id="cart-badge">0</span>
+        </button>
+        <a href="#gestalten" class="btn-primary nav-cta">Jetzt gestalten</a>
+      </div>
+
+      <!-- Hamburger Menu (Mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="hero">
+      <div class="ambient-grid-bg"></div>
+      <div class="ambient-glow-blob ambient-glow-1"></div>
+      <div class="ambient-glow-blob ambient-glow-2"></div>
+      <div class="ambient-glow-blob ambient-glow-3"></div>
+
+      <div class="hero-content">
+        <span class="hero-badge reveal">🎨 T-Shirt Designer</span>
+        <h1 class="reveal">Dein Style.<br><strong>Dein Design.</strong></h1>
+        <p class="reveal">Gestalte individuelle T-Shirts, Hoodies und mehr – mit deinem eigenen Text, Foto oder Logo.
+          Einfach, schnell und günstig.</p>
+        <div class="hero-buttons reveal">
+          <a href="#gestalten" class="btn-primary btn-lg">Jetzt gestalten →</a>
+          <a href="#produkte" class="btn-secondary">Produkte ansehen</a>
+        </div>
+      </div>
+
+      <!-- 3D Floating T-Shirt -->
+      <div class="hero-visual reveal">
+        <div class="tshirt-scene" id="tshirt-scene">
+          <!-- Glow Background -->
+          <div class="tshirt-glow"></div>
+
+          <!-- Floating Particles -->
+          <span class="particle particle-1"></span>
+          <span class="particle particle-2"></span>
+          <span class="particle particle-3"></span>
+          <span class="particle particle-4"></span>
+          <span class="particle particle-5"></span>
+          <span class="particle particle-6"></span>
+
+          <!-- Hero T-Shirt Photo -->
+          <div class="tshirt-3d" id="tshirt-3d">
+            <img src="images/hero_tshirt.png" class="tshirt-photo" alt="T-Shirt mit Streetwear Design" loading="eager">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ============ PRODUKTE SECTION ============ -->
+    <section class="section" id="produkte">
+      <div class="section-header reveal">
+        <h2>Unsere Produkte</h2>
+        <p>Wähle dein Lieblingsprodukt und gestalte es individuell.</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="filter-bar reveal">
+        <button class="filter-btn active" data-filter="alle">Alle</button>
+        <button class="filter-btn" data-filter="damen">Damen</button>
+        <button class="filter-btn" data-filter="herren">Herren</button>
+        <button class="filter-btn" data-filter="kinder">Kinder</button>
+        <button class="filter-btn" data-filter="accessoires">Accessoires</button>
+      </div>
+
+      <!-- Produkt Grid -->
+      <div class="produkt-grid">
+
+        <div class="produkt-card reveal" data-category="damen">
+          <div class="produkt-img">
+            <img src="images/damen_shirt.png" alt="Basic T-Shirt Damen" loading="lazy">
+          </div>
+          <div class="produkt-info">
+            <span class="produkt-tag">Damen</span>
+            <h3>Basic T-Shirt Damen</h3>
+            <p>Klassisch, bequem, perfekt für jeden Anlass.</p>
+            <div class="produkt-footer">
+              <span class="produkt-preis">ab 12,99 €</span>
+              <a href="#gestalten" class="btn-sm">Gestalten</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="produkt-card reveal" data-category="herren">
+          <div class="produkt-img">
+            <img src="images/herren_shirt.png" alt="Basic T-Shirt Herren" loading="lazy">
+          </div>
+          <div class="produkt-info">
+            <span class="produkt-tag">Herren</span>
+            <h3>Basic T-Shirt Herren</h3>
+            <p>Robuster Stoff, perfekter Sitz, viele Farben.</p>
+            <div class="produkt-footer">
+              <span class="produkt-preis">ab 12,99 €</span>
+              <a href="#gestalten" class="btn-sm">Gestalten</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="produkt-card reveal" data-category="herren">
+          <div class="produkt-img">
+            <img src="images/hoodie_premium.png" alt="Hoodie Premium" loading="lazy">
+          </div>
+          <div class="produkt-info">
+            <span class="produkt-tag">Herren</span>
+            <h3>Hoodie Premium</h3>
+            <p>Kuschelig warm mit deinem individuellen Design.</p>
+            <div class="produkt-footer">
+              <span class="produkt-preis">ab 29,99 €</span>
+              <a href="#gestalten" class="btn-sm">Gestalten</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="produkt-card reveal" data-category="kinder">
+          <div class="produkt-img">
+            <img src="images/kinder_shirt.png" alt="Kinder T-Shirt" loading="lazy">
+          </div>
+          <div class="produkt-info">
+            <span class="produkt-tag">Kinder</span>
+            <h3>Kinder T-Shirt</h3>
+            <p>Weich, hautfreundlich und bunt gestaltbar.</p>
+            <div class="produkt-footer">
+              <span class="produkt-preis">ab 9,99 €</span>
+              <a href="#gestalten" class="btn-sm">Gestalten</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="produkt-card reveal" data-category="damen">
+          <div class="produkt-img">
+            <img src="images/tank_top_damen.png" alt="Tank Top Damen" loading="lazy">
+          </div>
+          <div class="produkt-info">
+            <span class="produkt-tag">Damen</span>
+            <h3>Tank Top Damen</h3>
+            <p>Luftig leicht, ideal für den Sommer.</p>
+            <div class="produkt-footer">
+              <span class="produkt-preis">ab 11,99 €</span>
+              <a href="#gestalten" class="btn-sm">Gestalten</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="produkt-card reveal" data-category="accessoires">
+          <div class="produkt-img">
+            <img src="images/cap_muetze.png" alt="Cap / Mütze" loading="lazy">
+          </div>
+          <div class="produkt-info">
+            <span class="produkt-tag">Accessoires</span>
+            <h3>Cap / Mütze</h3>
+            <p>Individuell bestickt oder bedruckt.</p>
+            <div class="produkt-footer">
+              <span class="produkt-preis">ab 14,99 €</span>
+              <a href="#gestalten" class="btn-sm">Gestalten</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ SO FUNKTIONIERT'S ============ -->
+    <section class="section section-dark" id="so-funktionierts">
+      <div class="section-header reveal">
+        <h2>So einfach geht's</h2>
+        <p>In nur 3 Schritten zu deinem individuellen Produkt.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-number">01</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+              <circle cx="9" cy="10" r="1.5" fill="currentColor" stroke="none" />
+              <circle cx="15" cy="10" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <h3>Produkt wählen</h3>
+          <p>Wähle aus T-Shirts, Hoodies, Caps und mehr in verschiedenen Farben und Größen.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-number">02</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+            </svg>
+          </div>
+          <h3>Design gestalten</h3>
+          <p>Lade dein Foto, Logo oder Motiv hoch. Oder nutze unsere Vorlagen und Textfunktion.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-number">03</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+              <line x1="12" y1="22.08" x2="12" y2="12" />
+            </svg>
+          </div>
+          <h3>Bestellen & fertig</h3>
+          <p>Wir drucken dein Design in Premium-Qualität und liefern direkt zu dir nach Hause.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VORTEILE ============ -->
+    <section class="section" id="vorteile">
+      <div class="section-header reveal">
+        <h2>Warum wir?</h2>
+        <p>Das macht uns besonders.</p>
+      </div>
+
+      <div class="vorteile-grid">
+        <div class="vorteil-card reveal">
+          <span class="vorteil-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+          <div>
+            <h3>Express in 48h</h3>
+            <p>Eilige Bestellung? Kein Problem – Express-Versand innerhalb von 48 Stunden.</p>
+          </div>
+        </div>
+
+        <div class="vorteil-card reveal">
+          <span class="vorteil-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+              <line x1="7" y1="7" x2="7.01" y2="7" />
+            </svg>
+          </span>
+          <div>
+            <h3>Mengenrabatt</h3>
+            <p>Bis zu 20% sparen bei Sammelbestellungen für Teams, Vereine und Events.</p>
+          </div>
+        </div>
+
+        <div class="vorteil-card reveal">
+          <span class="vorteil-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+              <path d="M17 3H7a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4V7a4 4 0 0 0-4-4z" />
+              <path d="M9 12h6M9 16h6" />
+            </svg>
+          </span>
+          <div>
+            <h3>Einfacher Designer</h3>
+            <p>Keine Vorkenntnisse nötig – unser Designer ist intuitiv und macht Spaß.</p>
+          </div>
+        </div>
+
+        <div class="vorteil-card reveal">
+          <span class="vorteil-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13" rx="1" />
+              <path d="M16 8h4l3 5v3h-7V8z" />
+              <circle cx="5.5" cy="18.5" r="2.5" />
+              <circle cx="18.5" cy="18.5" r="2.5" />
+            </svg>
+          </span>
+          <div>
+            <h3>Gratis Versand ab 100€</h3>
+            <p>Kostenloser Versand für alle Bestellungen über 100 Euro.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ T-SHIRT DESIGNER ============ -->
+    <section class="section designer-section" id="gestalten">
+      <div class="section-header reveal">
+        <h2>T-Shirt Designer</h2>
+        <p>Gestalte dein individuelles T-Shirt – wähle Farbe, Muster und Text.</p>
+      </div>
+
+      <div class="designer-layout reveal">
+
+        <!-- ====== LINKE SEITE: Live-Vorschau ====== -->
+        <div class="designer-preview">
+          <div class="preview-container" id="preview-container">
+            <!-- T-Shirt SVG als Hintergrund -->
+            <svg viewBox="0 0 400 460" fill="none" xmlns="http://www.w3.org/2000/svg" class="preview-tshirt-svg"
+              id="preview-tshirt-svg">
+              <!-- T-Shirt Body -->
+              <path id="tshirt-body" d="
+                M80 120 L20 155 L55 210 L100 178 L100 410 L300 410 L300 178 L345 210 L380 155 L320 120
+                L270 100 L248 128 C230 150 170 150 152 128 L130 100 Z
+              " fill="#ffffff" stroke="#e0e0e0" stroke-width="1.5" />
+              <!-- Kragen -->
+              <path d="M152 128 C170 150 230 150 248 128" fill="none" stroke="#d0d0d0" stroke-width="2" />
+              <!-- Ärmelfalten -->
+              <path d="M100 178 L80 120" fill="none" stroke="#e8e8e8" stroke-width="1" opacity="0.5" />
+              <path d="M300 178 L320 120" fill="none" stroke="#e8e8e8" stroke-width="1" opacity="0.5" />
+            </svg>
+
+            <!-- Design-Canvas (wird über das T-Shirt gelegt) -->
+            <canvas id="design-canvas" width="180" height="200"></canvas>
+
+            <!-- Drag-Hinweis -->
+            <div class="drag-hint" id="drag-hint">
+              <span>📌</span> Klicke & ziehe dein Design auf dem T-Shirt
+            </div>
+          </div>
+
+          <!-- Vorschau-Aktionen -->
+          <div class="preview-actions">
+            <button class="btn-outline" id="btn-reset" title="Design zurücksetzen">
+              🗑️ Zurücksetzen
+            </button>
+            <button class="btn-primary" id="btn-download" title="Design als Bild herunterladen">
+              💾 Design speichern
+            </button>
+          </div>
+        </div>
+
+        <!-- ====== RECHTE SEITE: Werkzeuge ====== -->
+        <div class="designer-tools">
+
+          <!-- Tab-Navigation -->
+          <div class="tool-tabs">
+            <button class="tool-tab active" data-tab="tab-farbe">
+              <span class="tab-icon">🎨</span> Farbe
+            </button>
+            <button class="tool-tab" data-tab="tab-muster">
+              <span class="tab-icon">🖼️</span> Muster
+            </button>
+            <button class="tool-tab" data-tab="tab-text">
+              <span class="tab-icon">✏️</span> Text
+            </button>
+            <button class="tool-tab" data-tab="tab-kauf" id="tab-kauf-btn">
+              <span class="tab-icon">🛒</span> Bestellen
+            </button>
+          </div>
+
+          <!-- ===== TAB: FARBE ===== -->
+          <div class="tool-panel active" id="tab-farbe">
+            <h3 class="panel-title">T-Shirt Farbe</h3>
+            <p class="panel-desc">Wähle die Grundfarbe für dein T-Shirt.</p>
+
+            <div class="color-grid" id="color-grid">
+              <button class="color-swatch active" data-color="#ffffff" style="background:#ffffff" title="Weiß"></button>
+              <button class="color-swatch" data-color="#0a0a0a" style="background:#0a0a0a" title="Schwarz"></button>
+              <button class="color-swatch" data-color="#1e293b" style="background:#1e293b" title="Navy"></button>
+              <button class="color-swatch" data-color="#dc2626" style="background:#dc2626" title="Rot"></button>
+              <button class="color-swatch" data-color="#ea580c" style="background:#ea580c" title="Orange"></button>
+              <button class="color-swatch" data-color="#eab308" style="background:#eab308" title="Gelb"></button>
+              <button class="color-swatch" data-color="#16a34a" style="background:#16a34a" title="Grün"></button>
+              <button class="color-swatch" data-color="#2563eb" style="background:#2563eb" title="Blau"></button>
+              <button class="color-swatch" data-color="#7c3aed" style="background:#7c3aed" title="Lila"></button>
+              <button class="color-swatch" data-color="#ec4899" style="background:#ec4899" title="Pink"></button>
+              <button class="color-swatch" data-color="#a3a3a3" style="background:#a3a3a3" title="Grau"></button>
+              <button class="color-swatch" data-color="#78350f" style="background:#78350f" title="Braun"></button>
+            </div>
+
+            <div class="custom-color">
+              <label for="custom-color-input">Eigene Farbe:</label>
+              <input type="color" id="custom-color-input" value="#ffffff">
+            </div>
+          </div>
+
+          <!-- ===== TAB: MUSTER ===== -->
+          <div class="tool-panel" id="tab-muster">
+            <h3 class="panel-title">Muster & Bilder</h3>
+            <p class="panel-desc">Lade dein eigenes Bild hoch oder wähle ein Muster.</p>
+
+            <!-- Upload-Bereich -->
+            <div class="upload-zone" id="upload-zone">
+              <div class="upload-icon">📁</div>
+              <p class="upload-text">Bild hierher ziehen oder <strong>klicken</strong></p>
+              <p class="upload-hint">JPG, PNG, SVG – max. 5 MB</p>
+              <input type="file" id="file-input" accept="image/*" hidden>
+            </div>
+
+            <!-- Vorgefertigte Muster -->
+            <h4 class="sub-title">Oder wähle ein Muster:</h4>
+            <div class="pattern-grid" id="pattern-grid">
+              <button class="pattern-card" data-pattern="patterns/geometric.png">
+                <img src="patterns/geometric.png" alt="Geometrisch" loading="lazy">
+                <span>Geometrisch</span>
+              </button>
+              <button class="pattern-card" data-pattern="patterns/tropical.png">
+                <img src="patterns/tropical.png" alt="Tropical" loading="lazy">
+                <span>Tropical</span>
+              </button>
+              <button class="pattern-card" data-pattern="patterns/watercolor.png">
+                <img src="patterns/watercolor.png" alt="Watercolor" loading="lazy">
+                <span>Watercolor</span>
+              </button>
+              <button class="pattern-card" data-pattern="patterns/waves.png">
+                <img src="patterns/waves.png" alt="Wellen" loading="lazy">
+                <span>Wellen</span>
+              </button>
+              <button class="pattern-card" data-pattern="patterns/camo.png">
+                <img src="patterns/camo.png" alt="Camo" loading="lazy">
+                <span>Camo</span>
+              </button>
+              <button class="pattern-card" data-pattern="patterns/galaxy.png">
+                <img src="patterns/galaxy.png" alt="Galaxy" loading="lazy">
+                <span>Galaxy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== TAB: TEXT ===== -->
+          <div class="tool-panel" id="tab-text">
+            <h3 class="panel-title">Text hinzufügen</h3>
+            <p class="panel-desc">Schreibe deinen eigenen Text aufs T-Shirt.</p>
+
+            <div class="text-controls">
+              <div class="control-group">
+                <label for="text-input">Dein Text:</label>
+                <input type="text" id="text-input" placeholder="z.B. Mein Style" maxlength="40">
+              </div>
+
+              <div class="control-group">
+                <label for="font-select">Schriftart:</label>
+                <select id="font-select">
+                  <option value="Outfit" style="font-family:Outfit">Outfit (Modern)</option>
+                  <option value="Inter" style="font-family:Inter">Inter (Clean)</option>
+                  <option value="Georgia" style="font-family:Georgia">Georgia (Serif)</option>
+                  <option value="Courier New" style="font-family:Courier New">Courier (Mono)</option>
+                  <option value="Impact" style="font-family:Impact">Impact (Bold)</option>
+                  <option value="Comic Sans MS" style="font-family:Comic Sans MS">Comic Sans (Fun)</option>
+                  <option value="Brush Script MT" style="font-family:Brush Script MT">Brush Script (Hand)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <div class="control-group">
+                  <label for="font-size">Größe:</label>
+                  <input type="range" id="font-size" min="12" max="48" value="24">
+                  <span class="range-value" id="font-size-value">24px</span>
+                </div>
+
+                <div class="control-group">
+                  <label for="text-color">Farbe:</label>
+                  <input type="color" id="text-color" value="#000000">
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label>Stil:</label>
+                <div class="style-buttons">
+                  <button class="style-btn" id="btn-bold" title="Fett">B</button>
+                  <button class="style-btn" id="btn-italic" title="Kursiv"><em>I</em></button>
+                  <button class="style-btn" id="btn-uppercase" title="Großbuchstaben">AA</button>
+                </div>
+              </div>
+
+              <button class="btn-primary btn-add-text" id="btn-add-text">
+                ✏️ Text auf T-Shirt setzen
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== TAB: BESTELLEN ===== -->
+          <div class="tool-panel" id="tab-kauf">
+            <h3 class="panel-title">Größe & Bestellen</h3>
+            <p class="panel-desc">Wähle Produkt, Größe und Menge für deine Bestellung.</p>
+
+            <div class="purchase-controls">
+              <!-- Produkt-Typ -->
+              <div class="control-group">
+                <label for="product-select">Produkt-Typ:</label>
+                <select id="product-select">
+                  <option value="herren-shirt" data-price="12.99">Basic T-Shirt Herren — 12,99 €</option>
+                  <option value="damen-shirt" data-price="12.99">Basic T-Shirt Damen — 12,99 €</option>
+                  <option value="hoodie" data-price="29.99">Hoodie Premium — 29,99 €</option>
+                  <option value="kinder-shirt" data-price="9.99">Kinder T-Shirt — 9,99 €</option>
+                  <option value="tank-top" data-price="11.99">Tank Top Damen — 11,99 €</option>
+                  <option value="cap" data-price="14.99">Cap / Mütze — 14,99 €</option>
+                </select>
+              </div>
+
+              <!-- Größe -->
+              <div class="control-group">
+                <label>Größe:</label>
+                <div class="size-selector" id="size-selector">
+                  <button class="size-chip" data-size="S">S</button>
+                  <button class="size-chip active" data-size="M">M</button>
+                  <button class="size-chip" data-size="L">L</button>
+                  <button class="size-chip" data-size="XL">XL</button>
+                  <button class="size-chip" data-size="XXL">XXL</button>
+                </div>
+              </div>
+
+              <!-- Menge -->
+              <div class="control-group">
+                <label>Menge:</label>
+                <div class="quantity-stepper">
+                  <button type="button" class="qty-btn" id="qty-minus">—</button>
+                  <input type="number" id="qty-input" value="1" min="1" max="99" readonly>
+                  <button type="button" class="qty-btn" id="qty-plus">+</button>
+                </div>
+              </div>
+
+              <!-- Preisübersicht -->
+              <div class="price-summary">
+                <div class="price-row">
+                  <span>Einzelpreis:</span>
+                  <span id="summary-single-price">12,99 €</span>
+                </div>
+                <div class="price-row total">
+                  <span>Gesamtpreis:</span>
+                  <span id="summary-total-price">12,99 €</span>
+                </div>
+              </div>
+
+              <!-- In den Warenkorb Button -->
+              <button class="btn-primary btn-add-to-cart" id="btn-add-to-cart">
+                🛍️ In den Warenkorb
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /designer-tools -->
+      </div><!-- /designer-layout -->
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="kontakt">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>TSHIRT<span>DRUCK</span></h4>
+        <p>Individuelle T-Shirts, Hoodies und Accessoires – schnell, günstig und in Premium-Qualität.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Produkte</h4>
+        <a href="#">T-Shirts</a>
+        <a href="#">Poloshirts</a>
+        <a href="#">Hoodies</a>
+        <a href="#">Caps</a>
+        <a href="#">Fotogeschenke</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Service</h4>
+        <a href="#">Hilfe & FAQ</a>
+        <a href="#">Zahlung & Lieferung</a>
+        <a href="#">Rabatte</a>
+        <a href="#">Blog</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <p>📧 info@tshirt-druck.de</p>
+        <p>📞 01805-53 53 63</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter">X</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 TShirtDruck. Alle Rechte vorbehalten.</p>
+      <div class="footer-legal">
+        <a href="#">Impressum</a>
+        <a href="#">AGB</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">Widerruf</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SHOPPING CART SIDEBAR ============ -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Dein Warenkorb (<span id="cart-sidebar-count">0</span>)</h3>
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="Warenkorb schließen">×</button>
+    </div>
+
+    <div class="cart-items" id="cart-items-list">
+      <div class="cart-empty-state" id="cart-empty-state">
+        <div class="empty-icon">🛍️</div>
+        <p>Dein Warenkorb ist leer.</p>
+        <a href="#gestalten" class="btn-sm" id="btn-cart-empty-cta">Jetzt gestalten</a>
+      </div>
+    </div>
+
+    <div class="cart-footer" id="cart-footer">
+      <div class="cart-totals">
+        <div class="totals-row">
+          <span>Zwischensumme</span>
+          <span id="cart-subtotal">0,00 €</span>
+        </div>
+        <div class="totals-row">
+          <span>Versandkosten</span>
+          <span id="cart-shipping">0,00 €</span>
+        </div>
+        <div class="totals-row vat-row">
+          <span>inkl. 19% MwSt.</span>
+          <span id="cart-tax">0,00 €</span>
+        </div>
+        <div class="totals-row grand-total">
+          <span>Gesamtsumme</span>
+          <span id="cart-total">0,00 €</span>
+        </div>
+      </div>
+      <button class="btn-primary btn-checkout" id="btn-checkout">Zur Kasse →</button>
+    </div>
+  </div>
+
+  <!-- ============ CHECKOUT MODAL ============ -->
+  <div class="checkout-overlay" id="checkout-overlay">
+    <div class="checkout-modal" id="checkout-modal">
+      <button class="checkout-close-btn" id="checkout-close-btn" aria-label="Checkout schließen">×</button>
+
+      <div class="checkout-grid" id="checkout-main-view">
+        <div class="checkout-form-section">
+          <h3>📋 Versand & Zahlung</h3>
+          <form id="checkout-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="checkout-email">E-Mail-Adresse</label>
+              <input type="email" id="checkout-email" required placeholder="name@beispiel.de">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="checkout-vorname">Vorname</label>
+                <input type="text" id="checkout-vorname" required placeholder="Max">
+              </div>
+              <div class="form-group">
+                <label for="checkout-nachname">Nachname</label>
+                <input type="text" id="checkout-nachname" required placeholder="Mustermann">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="checkout-strasse">Straße & Hausnummer</label>
+              <input type="text" id="checkout-strasse" required placeholder="Musterstraße 42">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="checkout-plz">PLZ</label>
+                <input type="text" id="checkout-plz" required placeholder="12345" pattern="[0-9]{5}">
+              </div>
+              <div class="form-group">
+                <label for="checkout-ort">Ort</label>
+                <input type="text" id="checkout-ort" required placeholder="Musterstadt">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Zahlungsart</label>
+              <div class="payment-methods">
+                <div class="payment-card active" data-method="credit-card">
+                  <div class="payment-icon">💳</div>
+                  <span>Kreditkarte</span>
+                </div>
+                <div class="payment-card" data-method="paypal">
+                  <div class="payment-icon">🅿️</div>
+                  <span>PayPal</span>
+                </div>
+                <div class="payment-card" data-method="sofort">
+                  <div class="payment-icon">🏦</div>
+                  <span>Sofort</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="credit-card-details" id="credit-card-details">
+              <div class="form-group">
+                <label for="card-number">Kartennummer</label>
+                <input type="text" id="card-number" placeholder="1234 5678 1234 5678">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="card-expiry">Ablaufdatum</label>
+                  <input type="text" id="card-expiry" placeholder="MM/JJ">
+                </div>
+                <div class="form-group">
+                  <label for="card-cvc">CVC</label>
+                  <input type="text" id="card-cvc" placeholder="123">
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary btn-submit-order" id="btn-submit-order">Jetzt kostenpflichtig
+              bestellen</button>
+          </form>
+        </div>
+
+        <div class="checkout-summary-section">
+          <h3>📦 Deine Bestellung</h3>
+          <div class="checkout-summary-items" id="checkout-summary-items">
+            <!-- Dynamische Zusammenfassung -->
+          </div>
+          <div class="checkout-totals">
+            <div class="totals-row">
+              <span>Zwischensumme</span>
+              <span id="checkout-subtotal">0,00 €</span>
+            </div>
+            <div class="totals-row">
+              <span>Versandkosten</span>
+              <span id="checkout-shipping">0,00 €</span>
+            </div>
+            <div class="totals-row grand-total">
+              <span>Gesamtsumme</span>
+              <span id="checkout-total">0,00 €</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-loading" id="checkout-loading">
+        <div class="spinner"></div>
+        <p>Zahlung wird verarbeitet...</p>
+        <p class="sub">Bitte lade die Seite nicht neu.</p>
+      </div>
+
+      <div class="checkout-success" id="checkout-success">
+        <div class="success-checkmark">
+          <div class="check-icon">
+            <span class="icon-line line-tip"></span>
+            <span class="icon-line line-long"></span>
+            <div class="icon-circle"></div>
+            <div class="icon-fix"></div>
+          </div>
+        </div>
+        <h2>Vielen Dank für deine Bestellung!</h2>
+        <p class="order-number">Bestellnummer: <strong id="success-order-id">DE-128472</strong></p>
+        <p class="success-message">Dein Design wurde übermittelt und geht direkt in den Druck. Wir haben dir eine
+          Bestätigungs-E-Mail gesendet.</p>
+        <div class="success-details">
+          <div class="detail-row">
+            <span>Lieferzeit:</span>
+            <strong>ca. 2-3 Werktage</strong>
+          </div>
+          <div class="detail-row">
+            <span>Versandart:</span>
+            <strong>Standard DHL</strong>
+          </div>
+        </div>
+        <button class="btn-primary" id="btn-success-close">Schließen & Weitergestalten</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
