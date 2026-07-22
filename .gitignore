@@ -1,0 +1,29 @@
+# Dependencies
+**/node_modules/
+
+# Environment variables
+**/.env
+
+# Editor settings
+**/.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Database/JSON data files in subprojects
+**/data/users.json
+**/data/orders.json
+**/data/messages.json
+
+# Backup/archive files
+**/*.tar.gz
+**/*.zip
+**/*.bundle
+
+# Interne Notizen & Hilfsskripte (nicht öffentlich hochladen)
+NOCH-ZU-KOPIEREN.md
+UPLOAD-ANLEITUNG.md
+*.bat
+*.sh
