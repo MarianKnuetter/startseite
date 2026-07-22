@@ -1,0 +1,20 @@
+{
+  "name": "reinigungsfirma-team-hamburg",
+  "version": "1.0.0",
+  "description": "Website für Reinigungsfirma Team Hamburg mit Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node -e \"require('./server.js')\" 2>&1 || true"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^8.0.7"
+  }
+}

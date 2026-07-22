@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mitarbeiter – Reinigungsfirma Team Hamburg</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0b0f19 0%, #101625 50%, #141f33 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -100px; right: -100px;
+      animation: float-slow 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+
+    /* Header */
+    .ma-header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 0 32px; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-name { font-size: 0.8rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+    .logo-sub { font-size: 0.7rem; font-weight: 500; color: #22c55e; text-transform: uppercase; letter-spacing: 1.5px; }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .role-badge { background: #22c55e; color: #fff; font-size: 0.68rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 1px; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .user-name { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+    .link-btn { padding: 8px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #cbd5e0; font-family: inherit; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: all 0.3s; }
+    .link-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+    .logout-btn { padding: 8px 16px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; color: #fca5a5; font-family: inherit; font-size: 0.82rem; cursor: pointer; transition: all 0.3s; }
+    .logout-btn:hover { background: rgba(239,68,68,0.25); }
+
+    /* Main */
+    .ma-main { max-width: 900px; margin: 0 auto; padding: 32px 24px; position: relative; z-index: 1; }
+
+    /* Greeting */
+    .greeting { margin-bottom: 32px; }
+    .greeting h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .greeting h1 span { color: #22c55e; }
+    .greeting p { color: rgba(255,255,255,0.45); font-size: 0.9rem; }
+
+    /* Quick Stats */
+    .quick-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; }
+    .qs-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 22px 16px; text-align: center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+    .qs-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); }
+    .qs-card .num { font-size: 1.8rem; font-weight: 800; }
+    .qs-card .num.green { color: #22c55e; text-shadow: 0 0 15px rgba(34,197,94,0.2); }
+    .qs-card .num.yellow { color: #f59e0b; text-shadow: 0 0 15px rgba(245,158,11,0.2); }
+    .qs-card .num.blue { color: #4a90d9; text-shadow: 0 0 15px rgba(74,144,217,0.2); }
+    .qs-card .label { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; font-weight: 600; }
+
+    /* Section */
+    .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; color: #fff; }
+
+    /* Task Cards */
+    .tasks-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+    .task-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 22px; display: flex; align-items: center; gap: 18px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+    .task-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); transform: translateY(-1px); }
+    
+    .task-status-dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-neu { background: #4a90d9; box-shadow: 0 0 10px rgba(74,144,217,0.5); }
+    .dot-bearbeitung { background: #f59e0b; box-shadow: 0 0 10px rgba(245,158,11,0.5); }
+    .dot-erledigt { background: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,0.5); }
+    
+    .task-info { flex: 1; min-width: 0; }
+    .task-info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
+    .task-meta { display: flex; gap: 18px; flex-wrap: wrap; }
+    .task-meta span { font-size: 0.8rem; color: rgba(255,255,255,0.45); display: flex; align-items: center; gap: 5px; }
+    
+    .task-actions { display: flex; gap: 10px; flex-shrink: 0; align-items: center; }
+    .task-btn {
+      padding: 10px 18px; border: none; border-radius: 9px;
+      font-family: inherit; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-start { background: linear-gradient(135deg, #f59e0b, #e08e00); color: #fff; box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+    .btn-start:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(245,158,11,0.35); }
+    .btn-done { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; box-shadow: 0 4px 12px rgba(34,197,94,0.25); }
+    .btn-done:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(34,197,94,0.35); }
+    
+    .btn-comment {
+      background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6);
+      padding: 10px 14px; border: 1px solid rgba(255,255,255,0.1); border-radius: 9px;
+      font-size: 0.8rem; cursor: pointer; font-family: inherit; transition: all 0.2s;
+    }
+    .btn-comment:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+    /* Empty */
+    .empty { text-align: center; padding: 48px 20px; color: rgba(255,255,255,0.25); }
+    .empty .icon { font-size: 2.8rem; margin-bottom: 12px; }
+
+    /* No auth */
+    .no-auth { text-align: center; padding: 120px 20px; }
+    .no-auth h2 { color: #fca5a5; margin-bottom: 12px; font-size: 1.4rem; }
+    .no-auth a { color: #4a90d9; font-weight: 600; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      padding: 14px 24px; border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      z-index: 9999; transform: translateY(100px); opacity: 0; transition: all 0.4s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: #22c55e; color: #fff; box-shadow: 0 6px 20px rgba(34,197,94,0.3); }
+    .toast.error { background: #ef4444; color: #fff; box-shadow: 0 6px 20px rgba(239,68,68,0.3); }
+
+    /* Kommentare */
+    .task-comments { width: 100%; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); display: none; }
+    .task-comments.open { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+    .tc-list { max-height: 180px; overflow-y: auto; margin-bottom: 12px; }
+    .tc-item { padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 8px; }
+    .tc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .tc-author { font-size: 0.78rem; font-weight: 600; }
+    .tc-author.r-admin { color: #ef4444; }
+    .tc-author.r-mitarbeiter { color: #22c55e; }
+    .tc-author.r-kunde { color: #4a90d9; }
+    
+    .tc-tag { font-size: 0.58rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .tc-tag.t-admin { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .tc-tag.t-mitarbeiter { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .tc-tag.t-kunde { background: rgba(74,144,217,0.15); color: #4a90d9; }
+    
+    .tc-text { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.4; }
+    .tc-time { font-size: 0.68rem; color: rgba(255,255,255,0.22); margin-top: 4px; }
+    
+    .tc-input { display: flex; gap: 8px; }
+    .tc-input input { flex: 1; padding: 10px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-family: inherit; font-size: 0.84rem; }
+    .tc-input input::placeholder { color: rgba(255,255,255,0.25); }
+    .tc-input input:focus { outline: none; border-color: #22c55e; }
+    
+    .tc-send { padding: 10px 16px; background: #22c55e; border: none; border-radius: 8px; color: #fff; font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .tc-send:hover { background: #16a34a; }
+    .tc-empty { text-align: center; padding: 14px; color: rgba(255,255,255,0.25); font-size: 0.82rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .quick-stats { grid-template-columns: 1fr; gap: 12px; }
+      .task-card { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .task-actions { width: 100%; gap: 8px; }
+      .task-btn, .btn-comment { flex: 1; text-align: center; justify-content: center; }
+      .ma-header { padding: 0 16px; height: 58px; }
+      .user-name { display: none; }
+      .link-btn, .logout-btn { padding: 6px 12px; font-size: 0.76rem; }
+      .role-badge { font-size: 0.62rem; padding: 3px 7px; }
+      .logo-name { font-size: 0.72rem; }
+      .logo-sub { font-size: 0.62rem; }
+      .header-left { gap: 8px; }
+      .header-right { gap: 8px; }
+      .ma-main { padding: 20px 16px; }
+      .greeting h1 { font-size: 1.3rem; }
+      .qs-card .num { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="no-auth" style="display:none" class="no-auth">
+    <h2>⚠️ Bitte einloggen</h2>
+    <p><a href="login.html">Zum Login</a></p>
+  </div>
+
+  <div id="ma-wrapper" style="display:none">
+    <header class="ma-header">
+      <div class="header-left">
+        <div class="logo">
+          <span class="logo-name">Reinigungsfirma</span>
+          <span class="logo-sub">Team Hamburg</span>
+        </div>
+        <span class="role-badge">Mitarbeiter</span>
+      </div>
+      <div class="header-right">
+        <div id="ma-avatar" style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#4ade80);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff"></div>
+        <span class="user-name" id="user-name"></span>
+        <a href="index.html" class="link-btn">← Zur Website</a>
+        <button class="logout-btn" id="logout-btn">Abmelden</button>
+      </div>
+    </header>
+
+    <main class="ma-main">
+      <div class="greeting">
+        <h1>Guten <span id="greeting-time">Tag</span>, <span id="greeting-name"></span>! 👋</h1>
+        <p id="greeting-date"></p>
+      </div>
+
+      <div class="quick-stats">
+        <div class="qs-card">
+          <div class="num blue" id="stat-offen">0</div>
+          <div class="label">Offene Aufträge</div>
+        </div>
+        <div class="qs-card">
+          <div class="num yellow" id="stat-aktiv">0</div>
+          <div class="label">In Bearbeitung</div>
+        </div>
+        <div class="qs-card">
+          <div class="num green" id="stat-fertig">0</div>
+          <div class="label">Heute erledigt</div>
+        </div>
+      </div>
+
+      <div class="section-title">📋 Meine Aufträge</div>
+      <div class="tasks-list" id="tasks-list">
+        <div class="empty" id="tasks-empty">
+          <div class="icon">✨</div>
+          <p>Keine Aufträge zugewiesen. Entspann dich!</p>
+        </div>
+      </div>
+
+      <div class="section-title">✅ Erledigte Aufträge</div>
+      <div class="tasks-list" id="done-list">
+        <div class="empty" id="done-empty">
+          <div class="icon">📭</div>
+          <p>Noch nichts erledigt heute.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if (!token) {
+      document.getElementById('no-auth').style.display = 'block';
+    } else {
+      document.getElementById('ma-wrapper').style.display = 'block';
+      init();
+    }
+
+    function init() {
+      // Begrüßung
+      const name = userData.name || 'Mitarbeiter';
+      const hour = new Date().getHours();
+      let greeting = 'Tag';
+      if (hour < 12) greeting = 'Morgen';
+      else if (hour < 18) greeting = 'Nachmittag';
+      else greeting = 'Abend';
+
+      document.getElementById('greeting-time').textContent = greeting;
+      document.getElementById('greeting-name').textContent = name.split(' ')[0];
+      document.getElementById('user-name').textContent = name;
+      // Avatar Initialen
+      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+      document.getElementById('ma-avatar').textContent = initials;
+
+      const today = new Date().toLocaleDateString('de-DE', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+      });
+      document.getElementById('greeting-date').textContent = today;
+
+      loadTasks();
+    }
+
+    function showToast(msg, type='success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast ' + type + ' show';
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    async function api(url, method = 'GET', body = null) {
+      const opts = {
+        method,
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      };
+      if (body) opts.body = JSON.stringify(body);
+      const res = await fetch(url, opts);
+      return res.json();
+    }
+
+    async function loadTasks() {
+      try {
+        const data = await api('/api/orders');
+        const orders = data.orders || [];
+
+        const active = orders.filter(o => o.status === 'neu' || o.status === 'bearbeitung');
+        const done = orders.filter(o => o.status === 'erledigt');
+
+        // Stats
+        document.getElementById('stat-offen').textContent = orders.filter(o => o.status === 'neu').length;
+        document.getElementById('stat-aktiv').textContent = orders.filter(o => o.status === 'bearbeitung').length;
+        document.getElementById('stat-fertig').textContent = done.length;
+
+        // Active tasks
+        const tasksList = document.getElementById('tasks-list');
+        const tasksEmpty = document.getElementById('tasks-empty');
+
+        if (active.length === 0) {
+          tasksList.innerHTML = '';
+          tasksList.appendChild(tasksEmpty);
+          tasksEmpty.style.display = 'block';
+        } else {
+          tasksList.innerHTML = active.map(o => `
+            <div class="task-card" style="flex-wrap:wrap">
+              <div class="task-status-dot dot-${o.status}"></div>
+              <div class="task-info">
+                <h4>${o.service} – ${o.customer}</h4>
+                <div class="task-meta">
+                  ${o.address ? `<span>📍 ${o.address}</span>` : ''}
+                  ${o.date ? `<span>📅 ${o.date}</span>` : ''}
+                  ${o.notes ? `<span>📝 ${o.notes}</span>` : ''}
+                </div>
+              </div>
+              <div class="task-actions">
+                ${o.status === 'neu' ? `<button class="task-btn btn-start" onclick="updateStatus(${o.id}, 'bearbeitung')">▶ Beginnen</button>` : ''}
+                ${o.status === 'bearbeitung' ? `<button class="task-btn btn-done" onclick="updateStatus(${o.id}, 'erledigt')">✓ Erledigt</button>` : ''}
+                <button class="btn-comment" onclick="toggleComments(${o.id})">💬 Info</button>
+              </div>
+              <div class="task-comments" id="comments-${o.id}">
+                <div class="tc-list" id="tc-list-${o.id}"></div>
+                <div class="tc-input">
+                  <input type="text" id="tc-input-${o.id}" placeholder="Info / Nachricht hinterlassen..." onkeydown="if(event.key==='Enter')sendTC(${o.id})">
+                  <button class="tc-send" onclick="sendTC(${o.id})">Senden</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Done tasks
+        const doneList = document.getElementById('done-list');
+        const doneEmpty = document.getElementById('done-empty');
+
+        if (done.length === 0) {
+          doneList.innerHTML = '';
+          doneList.appendChild(doneEmpty);
+          doneEmpty.style.display = 'block';
+        } else {
+          doneList.innerHTML = done.map(o => `
+            <div class="task-card" style="opacity: 0.6">
+              <div class="task-status-dot dot-erledigt"></div>
+              <div class="task-info">
+                <h4 style="text-decoration: line-through">${o.service} – ${o.customer}</h4>
+                <div class="task-meta">
+                  ${o.address ? `<span>📍 ${o.address}</span>` : ''}
+                  ${o.date ? `<span>📅 ${o.date}</span>` : ''}
+                </div>
+              </div>
+              <span style="color:#22c55e;font-size:0.8rem;font-weight:600">Erledigt ✓</span>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        showToast('❌ Fehler beim Laden der Aufträge', 'error');
+      }
+    }
+
+    async function updateStatus(id, status) {
+      try {
+        const res = await api('/api/orders/' + id, 'PUT', { status });
+        if (res.success) {
+          showToast(status === 'bearbeitung' ? '▶ Auftrag gestartet' : '✓ Auftrag abgeschlossen!');
+          loadTasks();
+        } else {
+          showToast('❌ ' + res.message, 'error');
+        }
+      } catch (err) {
+        showToast('❌ Status konnte nicht geändert werden', 'error');
+      }
+    }
+
+    // Kommentar-Bereich umschalten
+    async function toggleComments(id) {
+      const el = document.getElementById('comments-' + id);
+      const isOpen = el.classList.contains('open');
+      // Alle schließen
+      document.querySelectorAll('.task-comments').forEach(c => c.classList.remove('open'));
+      if (!isOpen) {
+        el.classList.add('open');
+        await loadTC(id);
+      }
+    }
+
+    // Kommentare laden
+    async function loadTC(id) {
+      try {
+        const data = await api('/api/orders/' + id + '/comments');
+        const comments = data.comments || [];
+        const container = document.getElementById('tc-list-' + id);
+        const roleLabels = { admin: 'Chef', mitarbeiter: 'Mitarbeiter', kunde: 'Kunde' };
+
+        if (comments.length === 0) {
+          container.innerHTML = '<div class="tc-empty">Noch keine Nachrichten.</div>';
+          return;
+        }
+
+        container.innerHTML = comments.map(c => {
+          const t = new Date(c.createdAt);
+          const ts = t.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'}) + ' ' + t.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+          return `<div class="tc-item">
+            <div class="tc-head"><span class="tc-author r-${c.role}">${c.author}</span><span class="tc-tag t-${c.role}">${roleLabels[c.role]||c.role}</span></div>
+            <div class="tc-text">${c.text}</div>
+            <div class="tc-time">${ts}</div>
+          </div>`;
+        }).join('');
+        container.scrollTop = container.scrollHeight;
+      } catch (err) {
+        showToast('❌ Fehler beim Laden der Kommentare', 'error');
+      }
+    }
+
+    // Kommentar senden
+    async function sendTC(id) {
+      const input = document.getElementById('tc-input-' + id);
+      const text = input.value.trim();
+      if (!text) return;
+      try {
+        const res = await api('/api/orders/' + id + '/comments', 'POST', { text });
+        if (res.success) {
+          input.value = '';
+          await loadTC(id);
+        } else {
+          showToast('❌ ' + res.message, 'error');
+        }
+      } catch (err) {
+        showToast('❌ Kommentar konnte nicht gesendet werden', 'error');
+      }
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

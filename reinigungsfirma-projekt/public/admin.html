@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Reinigungsfirma Team Hamburg</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+
+    /* Apple System Colors */
+    :root {
+      --apple-blue: #0A84FF;
+      --apple-green: #30D158;
+      --apple-orange: #FF9F0A;
+      --apple-red: #FF453A;
+      --apple-purple: #BF5AF2;
+      --apple-gray: rgba(255,255,255,0.06);
+      --glass-bg: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+      --glass-hover: rgba(255,255,255,0.08);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes scaleIn { from { opacity:0; transform:scale(0.95); } to { opacity:1; transform:scale(1); } }
+
+    /* Header */
+    .admin-header {
+      background: rgba(15,17,23,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      padding: 0 32px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .admin-header .logo { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-name { font-size: 0.78rem; font-weight: 600; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
+    .logo-city { font-size: 0.68rem; font-weight: 500; color: var(--apple-blue); text-transform: uppercase; letter-spacing: 1px; }
+    .admin-badge { background: var(--apple-red); color: #fff; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .back-btn { padding: 6px 14px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; color: rgba(255,255,255,0.6); font-family: inherit; font-size: 0.78rem; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+    .back-btn:hover { background: var(--glass-hover); color: #fff; }
+    .logout-btn { padding: 6px 14px; background: rgba(255,69,58,0.1); border: 1px solid rgba(255,69,58,0.2); border-radius: 8px; color: var(--apple-red); font-family: inherit; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
+    .logout-btn:hover { background: rgba(255,69,58,0.2); }
+
+    /* Layout */
+    .admin-layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 56px); }
+
+    /* Sidebar – Glassmorphism */
+    .sidebar {
+      background: rgba(17,19,27,0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-right: 1px solid var(--glass-border); padding: 20px 12px;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; font-size: 0.84rem; color: rgba(255,255,255,0.45);
+      cursor: pointer; transition: all 0.2s; border-radius: 10px; margin-bottom: 2px;
+      font-weight: 500; border-left: none;
+    }
+    .sidebar-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+    .sidebar-item.active {
+      background: rgba(10,132,255,0.12); color: var(--apple-blue); font-weight: 600;
+      box-shadow: 0 0 0 1px rgba(10,132,255,0.15);
+    }
+    .sidebar-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+    .sidebar-icon svg, .sidebar-icon i { width: 18px; height: 18px; stroke-width: 1.8; }
+
+    /* Main */
+    .admin-main { padding: 32px; overflow-y: auto; max-height: calc(100vh - 56px); }
+    .page-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .page-sub { font-size: 0.84rem; color: rgba(255,255,255,0.35); margin-bottom: 28px; font-weight: 400; }
+
+    /* Stats */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .stat-box {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: 14px; padding: 20px; transition: all 0.25s ease;
+      animation: fadeInUp 0.4s ease both;
+    }
+    .stat-box:hover { background: var(--glass-hover); border-color: rgba(10,132,255,0.2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .stat-box .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.8px; color: rgba(255,255,255,0.35); margin-bottom: 8px; font-weight: 500; }
+    .stat-box .value { font-size: 1.5rem; font-weight: 700; color: #fff; }
+    .stat-box .value.green { color: var(--apple-green); }
+    .stat-box .value.blue { color: var(--apple-blue); }
+    .stat-box .value.orange { color: var(--apple-orange); }
+
+    /* Panels mit Animation */
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeInUp 0.35s ease both; }
+    .table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .table-title { font-size: 1.05rem; font-weight: 600; }
+    .add-btn {
+      padding: 9px 18px; background: var(--apple-blue); color: #fff; border: none;
+      border-radius: 9px; font-family: inherit; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .add-btn:hover { background: #0070E0; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(10,132,255,0.3); }
+    .add-btn:active { transform: scale(0.97); }
+
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left; padding: 12px 16px; font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 1px; color: rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    td { padding: 14px 16px; font-size: 0.88rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    tr:hover { background: rgba(255,255,255,0.02); }
+    .status-badge {
+      display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+    }
+    .status-neu { background: rgba(10,132,255,0.12); color: var(--apple-blue); }
+    .status-bearbeitung { background: rgba(255,159,10,0.12); color: var(--apple-orange); }
+    .status-erledigt { background: rgba(48,209,88,0.12); color: var(--apple-green); }
+    .status-storniert { background: rgba(255,69,58,0.12); color: var(--apple-red); }
+    .action-btn {
+      padding: 6px 12px; border: none; border-radius: 8px; font-family: inherit;
+      font-size: 0.78rem; cursor: pointer; margin-right: 6px; transition: all 0.2s;
+    }
+    .btn-edit { background: rgba(10,132,255,0.1); color: var(--apple-blue); }
+    .btn-edit:hover { background: rgba(10,132,255,0.2); }
+    .btn-delete { background: rgba(255,69,58,0.08); color: var(--apple-red); }
+    .btn-delete:hover { background: rgba(255,69,58,0.18); }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 1000; justify-content: center; align-items: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: rgba(26,35,50,0.95); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
+      padding: 32px; width: 100%; max-width: 500px;
+      animation: scaleIn 0.25s ease both;
+    }
+    .modal h2 { font-size: 1.15rem; font-weight: 650; margin-bottom: 20px; letter-spacing: -0.01em; }
+    .modal .form-group { margin-bottom: 16px; }
+    .modal label { display: block; font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+    .modal input, .modal select, .modal textarea {
+      width: 100%; padding: 11px 14px; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff;
+      font-family: inherit; font-size: 0.86rem; transition: border-color 0.2s;
+    }
+    .modal input::placeholder, .modal textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .modal input:focus, .modal select:focus, .modal textarea:focus { outline: none; border-color: var(--apple-blue); box-shadow: 0 0 0 3px rgba(10,132,255,0.15); }
+    .modal select option { background: #1a2332; }
+    .modal-buttons { display: flex; gap: 12px; margin-top: 20px; }
+    .modal-buttons button { flex: 1; padding: 11px; border: none; border-radius: 10px; font-family: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-save { background: var(--apple-blue); color: #fff; }
+    .btn-save:hover { background: #0070E0; box-shadow: 0 4px 12px rgba(10,132,255,0.3); }
+    .btn-cancel { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); }
+    .btn-cancel:hover { background: rgba(255,255,255,0.1); }
+
+    /* No auth */
+    .no-auth { text-align: center; padding: 120px 20px; }
+    .no-auth h2 { color: #fca5a5; margin-bottom: 12px; font-size: 1.3rem; }
+    .no-auth a { color: #4a90d9; }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.3); }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+
+    /* Detail Modal */
+    .detail-modal { max-width: 560px; padding: 0; overflow: hidden; }
+    .detail-header {
+      padding: 24px 28px; display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .detail-header h2 { font-size: 1.15rem; margin: 0; }
+    .detail-header .detail-id { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 2px; }
+    .detail-close { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.3rem; cursor: pointer; padding: 4px; }
+    .detail-close:hover { color: #fff; }
+    .detail-status-bar { padding: 14px 28px; display: flex; align-items: center; gap: 10px; }
+    .detail-status-bar.s-neu { background: rgba(74,144,217,0.08); }
+    .detail-status-bar.s-bearbeitung { background: rgba(245,158,11,0.08); }
+    .detail-status-bar.s-erledigt { background: rgba(34,197,94,0.08); }
+    .detail-status-bar.s-storniert { background: rgba(239,68,68,0.08); }
+    .detail-body { padding: 24px 28px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 22px; }
+    .detail-field {}
+    .detail-field .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+    .detail-field .value { font-size: 0.92rem; font-weight: 500; color: #e2e8f0; }
+    .detail-field .value.highlight { color: #4a90d9; }
+    .detail-field .value.green { color: #22c55e; }
+    .detail-notes { padding: 14px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; margin-bottom: 22px; }
+    .detail-notes .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
+    .detail-notes p { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .detail-timeline { border-left: 2px solid rgba(255,255,255,0.08); padding-left: 18px; margin-bottom: 22px; }
+    .tl-item { position: relative; margin-bottom: 14px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-item::before {
+      content: ''; position: absolute; left: -23px; top: 4px;
+      width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15);
+    }
+    .tl-item.done::before { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+    .tl-item.active::before { background: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.4); }
+    .tl-item .tl-label { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+    .tl-item .tl-value { font-size: 0.85rem; color: #e2e8f0; }
+    .detail-actions { display: flex; gap: 10px; padding: 20px 28px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .detail-actions button { flex: 1; }
+    tr.clickable { cursor: pointer; }
+
+    /* ---- RESPONSIVE ADMIN ---- */
+    @media (max-width: 768px) {
+      .admin-header { padding: 0 16px; height: 56px; }
+      .header-left { gap: 8px; }
+      .role-badge { font-size: 0.6rem; padding: 3px 7px; }
+      .header-right { gap: 8px; }
+      .user-name { display: none; }
+      .link-btn, .logout-btn { padding: 6px 10px; font-size: 0.75rem; }
+
+      .admin-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        display: flex; overflow-x: auto; padding: 0; border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        -webkit-overflow-scrolling: touch;
+      }
+      .sidebar-item {
+        padding: 12px 16px; white-space: nowrap; font-size: 0.78rem;
+        border-left: none; border-bottom: 3px solid transparent;
+      }
+      .sidebar-item.active { border-left: none; border-bottom-color: #4a90d9; }
+
+      .admin-main { padding: 20px 16px; }
+      .page-title { font-size: 1.15rem; }
+
+      .stat-box { padding: 14px; }
+      .stat-box .value { font-size: 1.3rem; }
+
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+      th, td { padding: 10px 12px; font-size: 0.78rem; }
+      .action-btn { padding: 5px 8px; font-size: 0.7rem; margin-right: 4px; }
+
+      .table-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .add-btn { width: 100%; text-align: center; }
+
+      .modal { margin: 16px; max-width: calc(100vw - 32px); max-height: 90vh; overflow-y: auto; }
+      .detail-modal { max-width: calc(100vw - 32px); max-height: 90vh; overflow-y: auto; }
+      .detail-grid { grid-template-columns: 1fr; gap: 12px; }
+      .detail-header { padding: 18px 20px; }
+      .detail-body { padding: 18px 20px; }
+      .detail-actions { padding: 16px 20px; flex-direction: column; }
+      .comments-section { padding: 0 20px 16px; }
+    }
+
+    @media (max-width: 400px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .logo-name { font-size: 0.7rem; }
+      .logo-sub { font-size: 0.6rem; }
+    }
+
+    /* Kommentare */
+    .comments-section { padding: 0 28px 20px; }
+    .comments-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
+    .comments-list { max-height: 200px; overflow-y: auto; margin-bottom: 12px; }
+    .comment-item { padding: 10px 12px; border-radius: 10px; margin-bottom: 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+    .comment-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .comment-author { font-size: 0.78rem; font-weight: 600; }
+    .comment-author.role-admin { color: #ef4444; }
+    .comment-author.role-mitarbeiter { color: #22c55e; }
+    .comment-author.role-kunde { color: #4a90d9; }
+    .comment-role-tag { font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+    .tag-admin { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .tag-mitarbeiter { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .tag-kunde { background: rgba(74,144,217,0.15); color: #4a90d9; }
+    .comment-text { font-size: 0.84rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+    .comment-time { font-size: 0.68rem; color: rgba(255,255,255,0.2); margin-top: 4px; }
+    .comment-stars { color: #f59e0b; font-size: 0.8rem; margin-top: 2px; }
+    .comment-input { display: flex; gap: 8px; }
+    .comment-input input { flex:1; padding: 10px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-family: inherit; font-size: 0.84rem; }
+    .comment-input input::placeholder { color: rgba(255,255,255,0.25); }
+    .comment-input input:focus { outline: none; border-color: #4a90d9; }
+    .comment-send { padding: 10px 16px; background: #4a90d9; border: none; border-radius: 8px; color: #fff; font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+    .comment-send:hover { background: #3a7bc8; }
+    .comment-empty { text-align: center; padding: 16px; color: rgba(255,255,255,0.2); font-size: 0.82rem; }
+    .detail-rating { display: flex; align-items: center; gap: 6px; padding: 10px 28px; background: rgba(245,158,11,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .detail-rating .stars { color: #f59e0b; font-size: 1rem; }
+    .detail-rating .rating-text { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+  </style>
+</head>
+<body>
+
+  <!-- Kein Admin -->
+  <div id="no-auth" style="display:none" class="no-auth">
+    <h2>⚠️ Kein Admin-Zugang</h2>
+    <p>Bitte <a href="login.html">als Admin einloggen</a>.</p>
+  </div>
+
+  <!-- Admin-Bereich -->
+  <div id="admin-wrapper" style="display:none">
+
+    <header class="admin-header">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="logo">
+          <span class="logo-name">Reinigungsfirma</span>
+          <span class="logo-city">Team Hamburg</span>
+        </div>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <div class="header-right">
+        <a href="index.html" class="back-btn">← Zur Website</a>
+        <button class="logout-btn" id="logout-btn">Abmelden</button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-item active" data-panel="dashboard">
+          <span class="sidebar-icon"><i data-lucide="layout-dashboard"></i></span> Dashboard
+        </div>
+        <div class="sidebar-item" data-panel="auftraege">
+          <span class="sidebar-icon"><i data-lucide="clipboard-list"></i></span> Aufträge
+        </div>
+        <div class="sidebar-item" data-panel="nachrichten">
+          <span class="sidebar-icon"><i data-lucide="mail"></i></span> Nachrichten
+        </div>
+        <div class="sidebar-item" data-panel="kunden">
+          <span class="sidebar-icon"><i data-lucide="users"></i></span> Kunden
+        </div>
+        <div class="sidebar-item" data-panel="mitarbeiter">
+          <span class="sidebar-icon"><i data-lucide="user-cog"></i></span> Mitarbeiter
+        </div>
+        <div class="sidebar-item" data-panel="kalender">
+          <span class="sidebar-icon"><i data-lucide="calendar"></i></span> Kalender
+        </div>
+      </nav>
+
+      <!-- Hauptbereich -->
+      <main class="admin-main">
+
+        <!-- Panel: Dashboard -->
+        <div class="panel active" id="panel-dashboard">
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-sub">Übersicht über dein Unternehmen</p>
+
+          <!-- Stat-Karten mit Previews -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-bottom:28px">
+
+            <!-- Aufträge -->
+            <div class="stat-box" onclick="goPanel('auftraege')" style="cursor:pointer">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+                <div class="label" style="margin:0">📋 Aufträge</div>
+                <div style="font-size:1.4rem;font-weight:800;color:#4a90d9" id="stat-total">0</div>
+              </div>
+              <div style="display:flex;gap:12px;margin-bottom:14px">
+                <div style="flex:1;text-align:center;padding:6px;background:rgba(245,158,11,0.1);border-radius:6px">
+                  <div style="font-size:1rem;font-weight:700;color:#f59e0b" id="stat-new">0</div>
+                  <div style="font-size:0.6rem;color:rgba(255,255,255,0.35)">NEU</div>
+                </div>
+                <div style="flex:1;text-align:center;padding:6px;background:rgba(74,144,217,0.1);border-radius:6px">
+                  <div style="font-size:1rem;font-weight:700;color:#4a90d9" id="stat-progress">0</div>
+                  <div style="font-size:0.6rem;color:rgba(255,255,255,0.35)">AKTIV</div>
+                </div>
+                <div style="flex:1;text-align:center;padding:6px;background:rgba(34,197,94,0.1);border-radius:6px">
+                  <div style="font-size:1rem;font-weight:700;color:#22c55e" id="stat-done">0</div>
+                  <div style="font-size:0.6rem;color:rgba(255,255,255,0.35)">ERLEDIGT</div>
+                </div>
+              </div>
+              <div id="dash-orders-preview" style="font-size:0.78rem;color:rgba(255,255,255,0.4)">Keine Aufträge</div>
+            </div>
+
+            <!-- Kunden -->
+            <div class="stat-box" onclick="goPanel('kunden')" style="cursor:pointer">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+                <div class="label" style="margin:0">👥 Kunden</div>
+                <div style="font-size:1.4rem;font-weight:800;color:#fff" id="stat-users">0</div>
+              </div>
+              <div id="dash-customers-preview" style="font-size:0.78rem;color:rgba(255,255,255,0.4)">Noch keine Kunden</div>
+            </div>
+
+            <!-- Mitarbeiter -->
+            <div class="stat-box" onclick="goPanel('mitarbeiter')" style="cursor:pointer">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+                <div class="label" style="margin:0">🧑‍💼 Mitarbeiter</div>
+                <div style="font-size:1.4rem;font-weight:800;color:#22c55e" id="stat-staff">0</div>
+              </div>
+              <div id="dash-staff-preview" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+            </div>
+
+            <!-- Nachrichten -->
+            <div class="stat-box" onclick="goPanel('nachrichten')" style="cursor:pointer">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+                <div class="label" style="margin:0">💬 Nachrichten</div>
+                <div style="font-size:1.4rem;font-weight:800;color:#a78bfa" id="stat-msgs">0</div>
+              </div>
+              <div id="dash-msgs-preview" style="font-size:0.78rem;color:rgba(255,255,255,0.4)">Keine Nachrichten</div>
+            </div>
+
+          </div>
+
+          <div class="table-title" style="margin-bottom:12px">Letzte Kontaktanfragen</div>
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Leistung</th><th>Datum</th></tr>
+            </thead>
+            <tbody id="dash-messages"></tbody>
+          </table>
+        </div>
+
+        <!-- Panel: Aufträge -->
+        <div class="panel" id="panel-auftraege">
+          <div class="table-header">
+            <div>
+              <h1 class="page-title">Aufträge</h1>
+              <p class="page-sub">Alle Aufträge verwalten</p>
+            </div>
+            <button class="add-btn" id="btn-new-order">+ Neuer Auftrag</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Kunde</th><th>Leistung</th><th>Zugewiesen an</th><th>Datum</th><th>Status</th><th>Beginn</th><th>Ende</th><th>Erledigt von</th><th>Aktionen</th></tr>
+            </thead>
+            <tbody id="orders-table"></tbody>
+          </table>
+          <div class="empty-state" id="orders-empty" style="display:none">
+            <div class="icon">📋</div>
+            <p>Noch keine Aufträge vorhanden.</p>
+          </div>
+        </div>
+
+        <!-- Panel: Nachrichten -->
+        <div class="panel" id="panel-nachrichten">
+          <h1 class="page-title">Kontaktanfragen</h1>
+          <p class="page-sub">Nachrichten vom Kontaktformular</p>
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Telefon</th><th>Leistung</th><th>Nachricht</th><th>Datum</th><th></th></tr>
+            </thead>
+            <tbody id="messages-table"></tbody>
+          </table>
+        </div>
+
+        <!-- Panel: Kunden -->
+        <div class="panel" id="panel-kunden">
+          <div class="table-header">
+            <div>
+              <h1 class="page-title">Kunden</h1>
+              <p class="page-sub">Alle registrierten Kunden</p>
+            </div>
+            <button class="add-btn" id="btn-new-customer">+ Neuer Kunde</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Telefon</th><th>Registriert am</th><th></th></tr>
+            </thead>
+            <tbody id="users-table"></tbody>
+          </table>
+        </div>
+
+  <!-- Modal: Neuer Kunde -->
+  <div class="modal-overlay" id="modal-customer">
+    <div class="modal">
+      <h2 id="modal-customer-title">Neuer Kunde</h2>
+      <form id="customer-form">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="cust-name" required placeholder="Vor- und Nachname">
+        </div>
+        <div class="form-group">
+          <label>E-Mail *</label>
+          <input type="email" id="cust-email" required placeholder="email@beispiel.de">
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input type="text" id="cust-phone" placeholder="+49 ...">
+        </div>
+        <div class="form-group">
+          <label>Adresse</label>
+          <input type="text" id="cust-address" placeholder="Straße, PLZ Stadt">
+        </div>
+        <div class="form-group">
+          <label>Notizen</label>
+          <textarea id="cust-notes" rows="2" placeholder="Interne Notizen zum Kunden..."></textarea>
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="btn-cancel" id="btn-cancel-customer">Abbrechen</button>
+          <button type="submit" class="btn-save">Kunde anlegen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+        <!-- Panel: Mitarbeiter -->
+        <div class="panel" id="panel-mitarbeiter">
+          <div class="table-header">
+            <div>
+              <h1 class="page-title">Mitarbeiter</h1>
+              <p class="page-sub">Übersicht aller Mitarbeiter und ihre Aufträge</p>
+            </div>
+            <button class="add-btn" id="btn-new-employee">+ Neuer Mitarbeiter</button>
+          </div>
+          <div id="ma-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px"></div>
+        </div>
+
+  <!-- Modal: Neuer Mitarbeiter -->
+  <div class="modal-overlay" id="modal-employee">
+    <div class="modal">
+      <h2>Neuer Mitarbeiter</h2>
+      <form id="employee-form">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="emp-name" required placeholder="Vor- und Nachname">
+        </div>
+        <div class="form-group">
+          <label>E-Mail *</label>
+          <input type="email" id="emp-email" required placeholder="email@beispiel.de">
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input type="text" id="emp-phone" placeholder="+49 ...">
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="btn-cancel" id="btn-cancel-employee">Abbrechen</button>
+          <button type="submit" class="btn-save">Mitarbeiter anlegen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+        <!-- Panel: Kalender -->
+        <div class="panel" id="panel-kalender">
+          <div class="table-header">
+            <div>
+              <h1 class="page-title">Kalender</h1>
+              <p class="page-sub">Aufträge im Überblick</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <button class="action-btn btn-edit" id="cal-prev">◀</button>
+              <span id="cal-month" style="font-weight:600;min-width:160px;text-align:center"></span>
+              <button class="action-btn btn-edit" id="cal-next">▶</button>
+            </div>
+          </div>
+          <div id="cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:16px">
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal: Neuer Auftrag -->
+  <div class="modal-overlay" id="modal-order">
+    <div class="modal">
+      <h2 id="modal-title">Neuer Auftrag</h2>
+      <form id="order-form">
+        <input type="hidden" id="order-id">
+        <div class="form-group">
+          <label>Kunde auswählen</label>
+          <select id="order-customer-select">
+            <option value="">— Neuen Kunden eingeben —</option>
+          </select>
+        </div>
+        <div class="form-group" id="customer-name-group">
+          <label>Kundenname *</label>
+          <input type="text" id="order-customer" required placeholder="Name des Kunden">
+        </div>
+        <div class="form-group">
+          <label>Leistung *</label>
+          <select id="order-service" required>
+            <option value="">Bitte wählen...</option>
+            <option value="Sichtreinigung">Sichtreinigung</option>
+            <option value="Unterhaltsreinigung">Unterhaltsreinigung</option>
+            <option value="Grundreinigung">Grundreinigung</option>
+            <option value="Endreinigung">Endreinigung</option>
+            <option value="Fensterreinigung">Fensterreinigung</option>
+            <option value="Treppenhausreinigung">Treppenhausreinigung</option>
+            <option value="Privathaushalt">Privathaushalt</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Adresse</label>
+          <input type="text" id="order-address" placeholder="Straße, PLZ Stadt">
+        </div>
+        <div class="form-group">
+          <label>Datum</label>
+          <input type="date" id="order-date">
+        </div>
+        <div class="form-group">
+          <label>Notizen</label>
+          <textarea id="order-notes" rows="3" placeholder="Besondere Hinweise..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Wiederholung</label>
+          <select id="order-recurring">
+            <option value="">Einmalig</option>
+            <option value="weekly">Wöchentlich</option>
+            <option value="biweekly">Alle 2 Wochen</option>
+            <option value="monthly">Monatlich</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="order-status">
+            <option value="neu">Neu</option>
+            <option value="bearbeitung">In Bearbeitung</option>
+            <option value="erledigt">Erledigt</option>
+            <option value="storniert">Storniert</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Zuweisen an Mitarbeiter</label>
+          <select id="order-assigned">
+            <option value="">Nicht zugewiesen</option>
+          </select>
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="btn-cancel" id="btn-cancel-modal">Abbrechen</button>
+          <button type="submit" class="btn-save">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Auftrags-Details -->
+  <div class="modal-overlay" id="modal-detail">
+    <div class="modal detail-modal">
+      <div class="detail-header">
+        <div>
+          <h2 id="detail-title">Auftrag</h2>
+          <div class="detail-id" id="detail-id"></div>
+        </div>
+        <button class="detail-close" onclick="closeDetail()">✕</button>
+      </div>
+      <div class="detail-status-bar" id="detail-status-bar">
+        <span class="status-badge" id="detail-status"></span>
+      </div>
+      <div class="detail-body">
+        <div class="detail-grid" id="detail-grid"></div>
+        <div class="detail-notes" id="detail-notes-box" style="display:none">
+          <div class="label">Notizen</div>
+          <p id="detail-notes-text"></p>
+        </div>
+        <div class="label" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.35);margin-bottom:10px">Zeitverlauf</div>
+        <div class="detail-timeline" id="detail-timeline"></div>
+      </div>
+      <div id="detail-rating-bar" class="detail-rating" style="display:none">
+        <span class="stars" id="detail-stars"></span>
+        <span class="rating-text" id="detail-rating-text"></span>
+      </div>
+      <div class="comments-section">
+        <div class="comments-title">Kommentare & Feedback</div>
+        <div class="comments-list" id="detail-comments"></div>
+        <div class="comment-input">
+          <input type="text" id="comment-text" placeholder="Kommentar schreiben...">
+          <button class="comment-send" id="comment-send-btn">Senden</button>
+        </div>
+      </div>
+      <div class="detail-actions">
+        <button class="action-btn btn-edit" style="padding:12px;font-size:0.88rem" id="detail-edit-btn">✏️ Bearbeiten</button>
+        <button class="action-btn btn-edit" style="padding:12px;font-size:0.88rem;background:rgba(74,144,217,0.15);color:#4a90d9;border-color:rgba(74,144,217,0.3)" id="detail-pdf-btn">📄 Rechnung PDF</button>
+        <button class="action-btn btn-delete" style="padding:12px;font-size:0.88rem" id="detail-delete-btn">🗑️ Stornieren</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = '';
+    const token = localStorage.getItem('token');
+
+    // ---- Auth-Check ----
+    if (!token) {
+      document.getElementById('no-auth').style.display = 'block';
+    } else {
+      document.getElementById('admin-wrapper').style.display = 'block';
+      loadDashboard();
+    }
+
+    // ---- Sidebar Navigation ----
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        item.classList.add('active');
+        document.getElementById('panel-' + item.dataset.panel).classList.add('active');
+
+        if (item.dataset.panel === 'auftraege') loadOrders();
+        if (item.dataset.panel === 'nachrichten') loadMessages();
+        if (item.dataset.panel === 'kunden') loadUsers();
+        if (item.dataset.panel === 'dashboard') loadDashboard();
+        if (item.dataset.panel === 'mitarbeiter') loadMitarbeiter();
+        if (item.dataset.panel === 'kalender') loadCalendar();
+      });
+    });
+
+    // ---- Dashboard Stat-Box Navigation ----
+    function goPanel(panelName) {
+      // Sidebar aktiv setzen
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      const sidebarItem = document.querySelector(`.sidebar-item[data-panel="${panelName}"]`);
+      if (sidebarItem) sidebarItem.classList.add('active');
+      document.getElementById('panel-' + panelName).classList.add('active');
+
+      // Daten laden
+      if (panelName === 'auftraege') loadOrders();
+      if (panelName === 'kunden') loadUsers();
+      if (panelName === 'mitarbeiter') loadMitarbeiter();
+      if (panelName === 'nachrichten') loadMessages();
+      if (panelName === 'kalender') loadCalendar();
+    }
+
+    // ---- API Helper ----
+    async function api(url, method = 'GET', body = null) {
+      const opts = {
+        method,
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      };
+      if (body) opts.body = JSON.stringify(body);
+      const res = await fetch(API + url, opts);
+      return res.json();
+    }
+
+    // ---- Dashboard laden ----
+    async function loadDashboard() {
+      const [ordersData, messagesData, usersData] = await Promise.all([
+        api('/api/orders'),
+        api('/api/messages'),
+        api('/api/admin/users'),
+      ]);
+
+      const orders = ordersData.orders || [];
+      const messages = messagesData.messages || [];
+      const users = usersData.users || [];
+      const customers = users.filter(u => u.role === 'kunde');
+      const staff = users.filter(u => u.role === 'mitarbeiter');
+
+      // Zahlen
+      document.getElementById('stat-total').textContent = orders.length;
+      document.getElementById('stat-new').textContent = orders.filter(o => o.status === 'neu').length;
+      document.getElementById('stat-progress').textContent = orders.filter(o => o.status === 'bearbeitung').length;
+      document.getElementById('stat-done').textContent = orders.filter(o => o.status === 'erledigt').length;
+      document.getElementById('stat-users').textContent = customers.length;
+      document.getElementById('stat-staff').textContent = staff.length;
+      document.getElementById('stat-msgs').textContent = messages.length;
+
+      // Aufträge-Preview: Letzte 3 Aufträge
+      const recentOrders = orders.slice(-3).reverse();
+      document.getElementById('dash-orders-preview').innerHTML = recentOrders.length
+        ? recentOrders.map(o => {
+          const colors = { neu:'#f59e0b', bearbeitung:'#4a90d9', erledigt:'#22c55e', storniert:'#ef4444' };
+          const labels = { neu:'Neu', bearbeitung:'Aktiv', erledigt:'✓', storniert:'✗' };
+          return `<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <span style="width:6px;height:6px;border-radius:50%;background:${colors[o.status]||'#888'};flex-shrink:0"></span>
+            <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:rgba(255,255,255,0.6)">${o.customer}</span>
+            <span style="font-size:0.7rem;color:rgba(255,255,255,0.35)">${o.service}</span>
+            <span style="font-size:0.65rem;padding:2px 6px;border-radius:3px;background:rgba(${o.status==='erledigt'?'34,197,94':o.status==='bearbeitung'?'74,144,217':'245,158,11'},0.15);color:${colors[o.status]}">${labels[o.status]}</span>
+          </div>`;
+        }).join('')
+        : '<span style="color:rgba(255,255,255,0.25)">Keine Aufträge vorhanden</span>';
+
+      // Kunden-Preview: Liste
+      document.getElementById('dash-customers-preview').innerHTML = customers.length
+        ? customers.slice(-4).map(c =>
+          `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#4a90d9,#60a5fa);display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:700;color:#fff;flex-shrink:0">${c.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2)}</span>
+            <span style="flex:1;color:rgba(255,255,255,0.6)">${c.name}</span>
+            <span style="font-size:0.7rem;color:rgba(255,255,255,0.25)">${c.email}</span>
+          </div>`
+        ).join('')
+        : '<span style="color:rgba(255,255,255,0.25)">Noch keine Kunden – klicke hier um einen anzulegen</span>';
+
+      // Mitarbeiter-Preview: Avatar-Bubbles
+      document.getElementById('dash-staff-preview').innerHTML = staff.length
+        ? staff.map(s => {
+          const initials = s.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+          return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px" title="${s.name}">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#4ade80);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:#fff">${initials}</div>
+            <span style="font-size:0.55rem;color:rgba(255,255,255,0.35);max-width:50px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name.split(' ')[0]}</span>
+          </div>`;
+        }).join('')
+        : '<span style="font-size:0.78rem;color:rgba(255,255,255,0.25)">Keine Mitarbeiter</span>';
+
+      // Nachrichten-Preview: Letzte 3
+      const recentMsgs = messages.slice(-3).reverse();
+      document.getElementById('dash-msgs-preview').innerHTML = recentMsgs.length
+        ? recentMsgs.map(m =>
+          `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+            <span style="font-size:0.7rem;color:rgba(255,255,255,0.6);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.name}: ${m.message?.slice(0,40) || '—'}...</span>
+            <span style="font-size:0.6rem;color:rgba(255,255,255,0.2)">${new Date(m.receivedAt).toLocaleDateString('de-DE')}</span>
+          </div>`
+        ).join('')
+        : '<span style="color:rgba(255,255,255,0.25)">Keine Nachrichten</span>';
+
+      // Letzte Kontaktanfragen Tabelle
+      const tbody = document.getElementById('dash-messages');
+      tbody.innerHTML = messages.slice(-5).reverse().map(m => `
+        <tr>
+          <td>${m.name}</td>
+          <td>${m.email}</td>
+          <td>${m.service || '—'}</td>
+          <td>${new Date(m.receivedAt).toLocaleDateString('de-DE')}</td>
+        </tr>
+      `).join('');
+    }
+
+    // ---- Aufträge laden ----
+    async function loadOrders() {
+      const data = await api('/api/orders');
+      const orders = data.orders || [];
+      const tbody = document.getElementById('orders-table');
+      const empty = document.getElementById('orders-empty');
+
+      if (orders.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      // Aufträge cachen für Detail-Ansicht
+      window.cachedOrders = orders;
+
+      tbody.innerHTML = orders.map(o => `
+        <tr class="clickable" onclick="showDetail(${o.id})">
+          <td>${o.customer}</td>
+          <td>${o.service}</td>
+          <td>${o.assignedName || '<span style="color:rgba(255,255,255,0.25)">—</span>'}</td>
+          <td>${o.date || '—'}</td>
+          <td><span class="status-badge status-${o.status}">${statusLabel(o.status)}</span></td>
+          <td>${o.startedAt ? formatTime(o.startedAt) : '<span style="color:rgba(255,255,255,0.2)">—</span>'}</td>
+          <td>${o.completedAt ? formatTime(o.completedAt) : '<span style="color:rgba(255,255,255,0.2)">—</span>'}</td>
+          <td>${o.completedByName ? '<span style="color:#22c55e">✓ ' + o.completedByName + '</span>' : '—'}</td>
+          <td onclick="event.stopPropagation()">
+            <button class="action-btn btn-edit" onclick="editOrder(${o.id})">Bearbeiten</button>
+            <button class="action-btn btn-delete" onclick="deleteOrder(${o.id})">Stornieren</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function formatTime(iso) {
+      const d = new Date(iso);
+      const date = d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' });
+      const time = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+      return `<span style="font-size:0.78rem">${date} <strong>${time}</strong></span>`;
+    }
+
+    function statusLabel(s) {
+      return { neu: 'Neu', bearbeitung: 'In Bearbeitung', erledigt: 'Erledigt', storniert: 'Storniert' }[s] || s;
+    }
+
+    // ---- Nachrichten laden ----
+    async function loadMessages() {
+      const data = await api('/api/messages');
+      const msgs = data.messages || [];
+      document.getElementById('messages-table').innerHTML = msgs.reverse().map(m => `
+        <tr>
+          <td>${m.name}</td>
+          <td>${m.email}</td>
+          <td>${m.phone || '—'}</td>
+          <td>${m.service || '—'}</td>
+          <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.message}</td>
+          <td>${new Date(m.receivedAt).toLocaleDateString('de-DE')}</td>
+          <td><button class="action-btn btn-edit" onclick="messageToOrder(${m.id})">→ Auftrag</button></td>
+        </tr>
+      `).join('');
+    }
+
+    // Nachricht → Auftrag umwandeln
+    async function messageToOrder(id) {
+      const data = await api('/api/messages');
+      const msg = (data.messages || []).find(m => m.id === id);
+      if (!msg) return;
+
+      document.getElementById('order-id').value = '';
+      document.getElementById('order-customer').value = msg.name;
+      document.getElementById('order-service').value = msg.service || '';
+      document.getElementById('order-address').value = '';
+      document.getElementById('order-date').value = '';
+      document.getElementById('order-notes').value = msg.message;
+      document.getElementById('order-status').value = 'neu';
+      document.getElementById('modal-title').textContent = 'Auftrag aus Anfrage erstellen';
+      document.getElementById('modal-order').classList.add('active');
+    }
+
+    // ---- Kunden laden (nur Rolle: kunde) ----
+    async function loadUsers() {
+      const data = await api('/api/admin/users');
+      const users = (data.users || []).filter(u => u.role === 'kunde');
+      const tbody = document.getElementById('users-table');
+
+      if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:rgba(255,255,255,0.25)">Noch keine Kunden registriert.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = users.map(u => `<tr>
+        <td>${u.name}</td>
+        <td>${u.email}</td>
+        <td>${u.phone || '—'}</td>
+        <td>${new Date(u.createdAt).toLocaleDateString('de-DE')}</td>
+        <td><button class="action-btn btn-delete" onclick="deleteCustomer('${u.email}','${u.name}')">Löschen</button></td>
+      </tr>`).join('');
+    }
+
+    // ---- Neuer Kunde Modal ----
+    document.getElementById('btn-new-customer').addEventListener('click', () => {
+      document.getElementById('customer-form').reset();
+      document.getElementById('modal-customer').classList.add('active');
+    });
+    document.getElementById('btn-cancel-customer').addEventListener('click', () => {
+      document.getElementById('modal-customer').classList.remove('active');
+    });
+    document.getElementById('modal-customer').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) e.target.classList.remove('active');
+    });
+
+    // Kunde anlegen
+    document.getElementById('customer-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = await api('/api/admin/create-customer', 'POST', {
+        name: document.getElementById('cust-name').value,
+        email: document.getElementById('cust-email').value,
+        phone: document.getElementById('cust-phone').value,
+        address: document.getElementById('cust-address').value,
+        notes: document.getElementById('cust-notes').value
+      });
+      document.getElementById('modal-customer').classList.remove('active');
+      if (data.success) {
+        alert(`✅ ${data.message}`);
+        loadUsers();
+        loadDashboard();
+      } else {
+        alert('❌ ' + data.message);
+      }
+    });
+
+    // Kunde löschen
+    async function deleteCustomer(email, name) {
+      if (!confirm(`Kunde "${name}" wirklich löschen?`)) return;
+      const data = await api('/api/admin/users/' + encodeURIComponent(email), 'DELETE');
+      if (data.success) {
+        loadUsers();
+        loadDashboard();
+      } else {
+        alert('❌ ' + data.message);
+      }
+    }
+
+    // ---- Mitarbeiterliste laden ----
+    let employeeList = [];
+    let customerList = [];
+
+    async function loadEmployees() {
+      const data = await api('/api/admin/users');
+      const users = data.users || [];
+      employeeList = users.filter(u => u.role === 'mitarbeiter' || u.role === 'admin');
+      const select = document.getElementById('order-assigned');
+      select.innerHTML = '<option value="">Nicht zugewiesen</option>' +
+        employeeList.map(e => `<option value="${e.email}">${e.name}</option>`).join('');
+    }
+
+    // ---- Kundenliste für Dropdown laden ----
+    async function loadCustomers() {
+      const data = await api('/api/admin/users');
+      const users = data.users || [];
+      customerList = users.filter(u => u.role === 'kunde');
+      const select = document.getElementById('order-customer-select');
+      select.innerHTML = '<option value="">— Neuen Kunden eingeben —</option>' +
+        customerList.map(c => `<option value="${c.name}">${c.name} (${c.email})</option>`).join('');
+    }
+
+    // Kunden-Dropdown: Wenn Kunde gewählt wird, Name übernehmen
+    document.getElementById('order-customer-select').addEventListener('change', (e) => {
+      const nameInput = document.getElementById('order-customer');
+      const nameGroup = document.getElementById('customer-name-group');
+      if (e.target.value) {
+        nameInput.value = e.target.value;
+        nameGroup.style.display = 'none';
+      } else {
+        nameInput.value = '';
+        nameGroup.style.display = 'block';
+      }
+    });
+
+    // ---- Neuer Auftrag Modal ----
+    document.getElementById('btn-new-order').addEventListener('click', async () => {
+      document.getElementById('order-form').reset();
+      document.getElementById('order-id').value = '';
+      document.getElementById('order-customer-select').value = '';
+      document.getElementById('customer-name-group').style.display = 'block';
+      document.getElementById('modal-title').textContent = 'Neuer Auftrag';
+      await Promise.all([loadEmployees(), loadCustomers()]);
+      document.getElementById('modal-order').classList.add('active');
+    });
+
+    document.getElementById('btn-cancel-modal').addEventListener('click', () => {
+      document.getElementById('modal-order').classList.remove('active');
+    });
+
+    // Auftrag speichern
+    document.getElementById('order-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('order-id').value;
+      const orderData = {
+        customer: document.getElementById('order-customer').value,
+        service: document.getElementById('order-service').value,
+        address: document.getElementById('order-address').value,
+        date: document.getElementById('order-date').value,
+        notes: document.getElementById('order-notes').value,
+        recurring: document.getElementById('order-recurring').value,
+        status: document.getElementById('order-status').value,
+        assignedTo: document.getElementById('order-assigned').value,
+      };
+
+      if (id) {
+        await api('/api/orders/' + id, 'PUT', orderData);
+      } else {
+        await api('/api/orders', 'POST', orderData);
+      }
+
+      document.getElementById('modal-order').classList.remove('active');
+      loadOrders();
+      loadDashboard();
+    });
+
+    // Auftrag bearbeiten
+    async function editOrder(id) {
+      const data = await api('/api/orders');
+      const order = (data.orders || []).find(o => o.id === id);
+      if (!order) return;
+
+      await Promise.all([loadEmployees(), loadCustomers()]);
+      document.getElementById('order-id').value = order.id;
+      document.getElementById('order-customer').value = order.customer;
+      // Versuche den bestehenden Kunden im Dropdown zu finden
+      const custSelect = document.getElementById('order-customer-select');
+      const custMatch = Array.from(custSelect.options).find(o => o.value === order.customer);
+      if (custMatch) {
+        custSelect.value = order.customer;
+        document.getElementById('customer-name-group').style.display = 'none';
+      } else {
+        custSelect.value = '';
+        document.getElementById('customer-name-group').style.display = 'block';
+      }
+      document.getElementById('order-service').value = order.service;
+      document.getElementById('order-address').value = order.address || '';
+      document.getElementById('order-date').value = order.date || '';
+      document.getElementById('order-notes').value = order.notes || '';
+      document.getElementById('order-recurring').value = order.recurring || '';
+      document.getElementById('order-status').value = order.status;
+      document.getElementById('order-assigned').value = order.assignedTo || '';
+      document.getElementById('modal-title').textContent = 'Auftrag bearbeiten';
+      document.getElementById('modal-order').classList.add('active');
+    }
+
+    // Auftrag stornieren
+    async function deleteOrder(id) {
+      if (!confirm('Auftrag wirklich stornieren?')) return;
+      await api('/api/orders/' + id, 'DELETE');
+      loadOrders();
+      loadDashboard();
+    }
+
+    // ---- DETAIL-ANSICHT ----
+    function showDetail(id) {
+      const o = (window.cachedOrders || []).find(x => x.id === id);
+      if (!o) return;
+
+      // Titel & ID
+      document.getElementById('detail-title').textContent = o.service + ' – ' + o.customer;
+      document.getElementById('detail-id').textContent = 'Auftrag #' + o.id;
+
+      // Status-Bar
+      const bar = document.getElementById('detail-status-bar');
+      bar.className = 'detail-status-bar s-' + o.status;
+      const badge = document.getElementById('detail-status');
+      badge.className = 'status-badge status-' + o.status;
+      badge.textContent = statusLabel(o.status);
+
+      // Info-Grid
+      document.getElementById('detail-grid').innerHTML = `
+        <div class="detail-field">
+          <div class="label">Kunde</div>
+          <div class="value">${o.customer}</div>
+        </div>
+        <div class="detail-field">
+          <div class="label">Leistung</div>
+          <div class="value highlight">${o.service}</div>
+        </div>
+        <div class="detail-field">
+          <div class="label">Adresse</div>
+          <div class="value">${o.address || '—'}</div>
+        </div>
+        <div class="detail-field">
+          <div class="label">Termin</div>
+          <div class="value">${o.date ? new Date(o.date).toLocaleDateString('de-DE', {weekday:'short', day:'numeric', month:'long', year:'numeric'}) : '—'}</div>
+        </div>
+        <div class="detail-field">
+          <div class="label">Zugewiesen an</div>
+          <div class="value ${o.assignedName ? 'highlight' : ''}">${o.assignedName || 'Nicht zugewiesen'}</div>
+        </div>
+        <div class="detail-field">
+          <div class="label">Erledigt von</div>
+          <div class="value ${o.completedByName ? 'green' : ''}">${o.completedByName ? '✓ ' + o.completedByName : '—'}</div>
+        </div>
+      `;
+
+      // Notizen
+      const notesBox = document.getElementById('detail-notes-box');
+      if (o.notes) {
+        notesBox.style.display = 'block';
+        document.getElementById('detail-notes-text').textContent = o.notes;
+      } else {
+        notesBox.style.display = 'none';
+      }
+
+      // Timeline
+      const fmtFull = (iso) => {
+        const d = new Date(iso);
+        return d.toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit', year:'numeric'}) + ' – ' + d.toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'}) + ' Uhr';
+      };
+
+      let tl = `<div class="tl-item done">
+        <div class="tl-label">Erstellt</div>
+        <div class="tl-value">${fmtFull(o.createdAt)}</div>
+      </div>`;
+
+      if (o.startedAt) {
+        tl += `<div class="tl-item ${o.completedAt ? 'done' : 'active'}">
+          <div class="tl-label">Begonnen</div>
+          <div class="tl-value">${fmtFull(o.startedAt)}</div>
+        </div>`;
+      }
+
+      if (o.completedAt) {
+        tl += `<div class="tl-item done">
+          <div class="tl-label">Erledigt</div>
+          <div class="tl-value">${fmtFull(o.completedAt)}</div>
+        </div>`;
+
+        // Dauer berechnen
+        if (o.startedAt) {
+          const diff = new Date(o.completedAt) - new Date(o.startedAt);
+          const mins = Math.round(diff / 60000);
+          const hrs = Math.floor(mins / 60);
+          const remMins = mins % 60;
+          const dauer = hrs > 0 ? hrs + 'h ' + remMins + 'min' : mins + ' min';
+          tl += `<div class="tl-item done">
+            <div class="tl-label">Dauer</div>
+            <div class="tl-value" style="color:#22c55e;font-weight:600">⏱ ${dauer}</div>
+          </div>`;
+        }
+      }
+
+      document.getElementById('detail-timeline').innerHTML = tl;
+
+      // Kommentare & Rating laden
+      window.currentDetailId = id;
+      loadComments(id);
+
+      // Rating-Bar
+      const ratingBar = document.getElementById('detail-rating-bar');
+      if (o.rating) {
+        ratingBar.style.display = 'flex';
+        document.getElementById('detail-stars').textContent = '★'.repeat(o.rating) + '☆'.repeat(5 - o.rating);
+        document.getElementById('detail-rating-text').textContent = 'Kundenbewertung: ' + o.rating + '/5';
+      } else {
+        ratingBar.style.display = 'none';
+      }
+
+      // Action-Buttons
+      document.getElementById('detail-edit-btn').onclick = () => { closeDetail(); editOrder(id); };
+      document.getElementById('detail-delete-btn').onclick = () => { closeDetail(); deleteOrder(id); };
+
+      // Modal öffnen
+      document.getElementById('modal-detail').classList.add('active');
+    }
+
+    // ---- KOMMENTARE ----
+    async function loadComments(orderId) {
+      const data = await api('/api/orders/' + orderId + '/comments');
+      const comments = data.comments || [];
+      const container = document.getElementById('detail-comments');
+
+      if (comments.length === 0) {
+        container.innerHTML = '<div class="comment-empty">Noch keine Kommentare.</div>';
+        return;
+      }
+
+      const roleLabels = { admin: 'Admin', mitarbeiter: 'Mitarbeiter', kunde: 'Kunde' };
+
+      container.innerHTML = comments.map(c => {
+        const time = new Date(c.createdAt);
+        const timeStr = time.toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit'}) + ' ' + time.toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'});
+        return `
+          <div class="comment-item">
+            <div class="comment-head">
+              <span class="comment-author role-${c.role}">${c.author}</span>
+              <span class="comment-role-tag tag-${c.role}">${roleLabels[c.role] || c.role}</span>
+            </div>
+            <div class="comment-text">${c.text}</div>
+            ${c.rating ? '<div class="comment-stars">' + '★'.repeat(c.rating) + '☆'.repeat(5 - c.rating) + ' (' + c.rating + '/5)</div>' : ''}
+            <div class="comment-time">${timeStr}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Scroll nach unten
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // Kommentar senden
+    document.getElementById('comment-send-btn').addEventListener('click', sendComment);
+    document.getElementById('comment-text').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendComment();
+    });
+
+    async function sendComment() {
+      const input = document.getElementById('comment-text');
+      const text = input.value.trim();
+      if (!text || !window.currentDetailId) return;
+
+      await api('/api/orders/' + window.currentDetailId + '/comments', 'POST', { text });
+      input.value = '';
+      loadComments(window.currentDetailId);
+    }
+
+    function closeDetail() {
+      document.getElementById('modal-detail').classList.remove('active');
+    }
+
+    // Detail schließen bei Klick auf Overlay
+    document.getElementById('modal-detail').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeDetail();
+    });
+
+    // ---- MITARBEITER laden ----
+    async function loadMitarbeiter() {
+      const [usersData, ordersData] = await Promise.all([
+        api('/api/admin/users'),
+        api('/api/orders')
+      ]);
+      const users = (usersData.users || []).filter(u => u.role === 'mitarbeiter' || u.role === 'admin');
+      const orders = ordersData.orders || [];
+      const grid = document.getElementById('ma-grid');
+
+      grid.innerHTML = users.map(u => {
+        const initials = u.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        const myOrders = orders.filter(o => o.assignedTo === u.email);
+        const done = myOrders.filter(o => o.status === 'erledigt').length;
+        const active = myOrders.filter(o => o.status === 'bearbeitung').length;
+        const open = myOrders.filter(o => o.status === 'neu').length;
+        const roleLabel = u.role === 'admin' ? 'Admin' : 'Mitarbeiter';
+        const roleColor = u.role === 'admin' ? '#ef4444' : '#22c55e';
+
+        return `<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:24px;text-align:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,${roleColor},${u.role==='admin'?'#f87171':'#4ade80'});display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.1rem;font-weight:700;color:#fff">${initials}</div>
+          <div style="font-weight:600;font-size:0.95rem;margin-bottom:2px">${u.name}</div>
+          <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:4px">${u.email}</div>
+          <span style="display:inline-block;padding:3px 8px;border-radius:4px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;background:rgba(${u.role==='admin'?'239,68,68':'34,197,94'},0.15);color:${roleColor}">${roleLabel}</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px">
+            <div style="background:rgba(74,144,217,0.1);border-radius:8px;padding:8px">
+              <div style="font-size:1.1rem;font-weight:800;color:#4a90d9">${open}</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.35);text-transform:uppercase">Offen</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.1);border-radius:8px;padding:8px">
+              <div style="font-size:1.1rem;font-weight:800;color:#f59e0b">${active}</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.35);text-transform:uppercase">Aktiv</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.1);border-radius:8px;padding:8px">
+              <div style="font-size:1.1rem;font-weight:800;color:#22c55e">${done}</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.35);text-transform:uppercase">Fertig</div>
+            </div>
+          </div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:10px">${u.phone || 'Keine Telefonnr.'}</div>
+          ${u.role !== 'admin' ? `<button class="action-btn btn-delete" style="margin-top:10px;width:100%;font-size:0.72rem" onclick="deleteEmployee('${u.email}','${u.name}')">Entfernen</button>` : ''}
+        </div>`;
+      }).join('');
+
+      if (users.length === 0) {
+        grid.innerHTML = '<div style="text-align:center;padding:40px;color:rgba(255,255,255,0.25)">Keine Mitarbeiter vorhanden.</div>';
+      }
+    }
+
+    // ---- Neuer Mitarbeiter Modal ----
+    document.getElementById('btn-new-employee').addEventListener('click', () => {
+      document.getElementById('employee-form').reset();
+      document.getElementById('modal-employee').classList.add('active');
+    });
+    document.getElementById('btn-cancel-employee').addEventListener('click', () => {
+      document.getElementById('modal-employee').classList.remove('active');
+    });
+    document.getElementById('modal-employee').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) e.target.classList.remove('active');
+    });
+
+    // Mitarbeiter anlegen
+    document.getElementById('employee-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = await api('/api/admin/create-employee', 'POST', {
+        name: document.getElementById('emp-name').value,
+        email: document.getElementById('emp-email').value,
+        phone: document.getElementById('emp-phone').value
+      });
+      document.getElementById('modal-employee').classList.remove('active');
+      if (data.success) {
+        alert(`✅ ${data.message}`);
+        loadMitarbeiter();
+        loadDashboard();
+      } else {
+        alert('❌ ' + data.message);
+      }
+    });
+
+    // Mitarbeiter löschen
+    async function deleteEmployee(email, name) {
+      if (!confirm(`Mitarbeiter "${name}" wirklich entfernen?`)) return;
+      const data = await api('/api/admin/users/' + encodeURIComponent(email), 'DELETE');
+      if (data.success) {
+        loadMitarbeiter();
+        loadDashboard();
+      } else {
+        alert('❌ ' + data.message);
+      }
+    }
+
+    // ---- KALENDER ----
+    let calDate = new Date();
+    const dayNames = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+
+    document.getElementById('cal-prev').addEventListener('click', () => { calDate.setMonth(calDate.getMonth()-1); loadCalendar(); });
+    document.getElementById('cal-next').addEventListener('click', () => { calDate.setMonth(calDate.getMonth()+1); loadCalendar(); });
+
+    async function loadCalendar() {
+      const data = await api('/api/orders');
+      const orders = data.orders || [];
+      const year = calDate.getFullYear();
+      const month = calDate.getMonth();
+
+      document.getElementById('cal-month').textContent =
+        calDate.toLocaleDateString('de-DE', { month:'long', year:'numeric' });
+
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month+1, 0);
+      let startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay()-1;
+
+      let html = dayNames.map(d => `<div style="padding:8px;text-align:center;font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase">${d}</div>`).join('');
+
+      for (let i=0; i<startDay; i++) html += '<div></div>';
+
+      for (let d=1; d<=lastDay.getDate(); d++) {
+        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const dayOrders = orders.filter(o => o.date === dateStr);
+        const isToday = dateStr === new Date().toISOString().split('T')[0];
+        const bg = isToday ? 'rgba(74,144,217,0.2);border:1px solid rgba(74,144,217,0.4)' : 'rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)';
+
+        html += `<div style="background:${bg};border-radius:8px;padding:8px;min-height:70px">
+          <div style="font-size:0.82rem;font-weight:${isToday?'700':'500'};color:${isToday?'#4a90d9':'rgba(255,255,255,0.6)'};margin-bottom:4px">${d}</div>
+          ${dayOrders.map(o => {
+            const color = o.status==='erledigt'?'#22c55e':o.status==='bearbeitung'?'#f59e0b':'#4a90d9';
+            return `<div style="font-size:0.6rem;padding:2px 4px;background:rgba(${o.status==='erledigt'?'34,197,94':o.status==='bearbeitung'?'245,158,11':'74,144,217'},0.15);color:${color};border-radius:3px;margin-bottom:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer" onclick="showDetail(${o.id})" title="${o.service} – ${o.customer}">${o.service}</div>`;
+          }).join('')}
+        </div>`;
+      }
+
+      document.getElementById('cal-grid').innerHTML = html;
+    }
+
+    // ---- PDF RECHNUNG ----
+    document.getElementById('detail-pdf-btn').addEventListener('click', () => {
+      const o = (window.cachedOrders || []).find(x => x.id === window.currentDetailId);
+      if (!o) return;
+      const nr = 'TH-' + String(o.id).slice(-6);
+      const dateStr = o.date ? new Date(o.date).toLocaleDateString('de-DE') : new Date().toLocaleDateString('de-DE');
+      const w = window.open('', '_blank');
+      w.document.write(`<!DOCTYPE html><html><head><title>Rechnung ${nr}</title>
+        <style>
+          body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;padding:20px;color:#1e2d4a}
+          h1{font-size:1.6rem;margin-bottom:4px} .sub{color:#6b7280;font-size:0.85rem}
+          .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px}
+          .logo{font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+          .logo span{display:block;color:#4a90d9;font-size:0.75rem}
+          table{width:100%;border-collapse:collapse;margin:24px 0}
+          th{text-align:left;padding:10px;background:#f3f4f6;border:1px solid #e5e7eb;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:#6b7280}
+          td{padding:10px;border:1px solid #e5e7eb;font-size:0.9rem}
+          .total{text-align:right;font-size:1.1rem;font-weight:700;margin-top:16px}
+          .footer{margin-top:48px;padding-top:20px;border-top:1px solid #e5e7eb;font-size:0.78rem;color:#9ca3af;text-align:center}
+          @media print{body{margin:0;padding:20px}}
+        </style></head><body>
+        <div class="header">
+          <div>
+            <div class="logo">Reinigungsfirma<span>Team Hamburg</span></div>
+            <p style="font-size:0.82rem;color:#6b7280;margin-top:8px">Musterstraße 1<br>20000 Hamburg<br>Tel: +49 1577 48 64 072</p>
+          </div>
+          <div style="text-align:right">
+            <h1>RECHNUNG</h1>
+            <p class="sub">Nr: ${nr}</p>
+            <p class="sub">Datum: ${dateStr}</p>
+          </div>
+        </div>
+        <div style="margin-bottom:24px">
+          <strong>Kunde:</strong> ${o.customer}<br>
+          ${o.address ? '<strong>Adresse:</strong> ' + o.address + '<br>' : ''}
+        </div>
+        <table>
+          <thead><tr><th>Pos.</th><th>Leistung</th><th>Details</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>${o.service}</td><td>${o.notes||'—'}</td><td>${o.status==='erledigt'?'✅ Erledigt':o.status==='bearbeitung'?'⏳ In Bearbeitung':'📋 Neu'}</td></tr>
+          </tbody>
+        </table>
+        ${o.assignedName ? '<p style="font-size:0.85rem;color:#6b7280">Durchgeführt von: <strong>' + o.assignedName + '</strong></p>' : ''}
+        ${o.rating ? '<p style="font-size:0.85rem">Kundenbewertung: ' + '★'.repeat(o.rating) + '☆'.repeat(5-o.rating) + '</p>' : ''}
+        <div class="footer">
+          <p>Reinigungsfirma Team Hamburg · reinigungsfirmateamhamburg@gmail.com · +49 1577 48 64 072</p>
+          <p>Einfach immer sauber</p>
+        </div>
+        <script>setTimeout(()=>window.print(),500)<\/script>
+      </body></html>`);
+      w.document.close();
+    });
+
+    // Sidebar: Kalender-Handler
+    // (already handled by generic sidebar listener, just need to add the load call)
+
+    // Logout
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    });
+
+    // Lucide Icons initialisieren
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  </script>
+
+</body>
+</html>

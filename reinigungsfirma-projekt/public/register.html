@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrieren – Reinigungsfirma Team Hamburg</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0b0f19 0%, #141f33 40%, #1e2d4a 70%, #2a3f66 100%);
+      padding: 40px 20px;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(74,144,217,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -100px; right: -100px;
+      animation: float-slow 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+
+    .auth-container { width: 100%; max-width: 480px; position: relative; z-index: 1; }
+
+    .auth-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 44px 36px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 28px;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+    .auth-logo:hover {
+      opacity: 0.9;
+    }
+    .auth-logo-icon {
+      width: 48px; height: 48px;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 50%; border-top-color: transparent;
+      margin: 0 auto 12px; position: relative;
+      animation: spin-slow 8s linear infinite;
+    }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .auth-logo-icon::after {
+      content: ''; position: absolute; inset: 4px;
+      border: 2px dotted rgba(255,255,255,0.3); border-radius: 50%;
+    }
+    .auth-logo .logo-name { font-size: 1rem; }
+    .auth-logo .logo-city { font-size: 0.82rem; }
+
+    .auth-title { text-align: center; font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .auth-subtitle { text-align: center; font-size: 0.88rem; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .form-group { margin-bottom: 16px; position: relative; }
+
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.75); margin-bottom: 7px; }
+
+    .form-group input {
+      width: 100%; padding: 12px 16px;
+      background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 10px; color: #fff; font-family: 'Inter', sans-serif; font-size: 0.9rem; transition: all 0.3s;
+    }
+    .form-group input::placeholder { color: rgba(255,255,255,0.28); }
+    .form-group input:focus { outline: none; border-color: #4a90d9; background: rgba(255,255,255,0.12); box-shadow: 0 0 0 3px rgba(74,144,217,0.18); }
+    .form-group input.valid { border-color: rgba(34,197,94,0.5); }
+    .form-group input.invalid { border-color: rgba(239,68,68,0.5); }
+
+    .input-wrapper { position: relative; }
+    .input-wrapper input { padding-right: 48px; }
+    .toggle-pw { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 1rem; padding: 4px; transition: color 0.3s; }
+    .toggle-pw:hover { color: rgba(255,255,255,0.75); }
+
+    /* Password strength bar */
+    .pw-strength { margin-top: 6px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .pw-strength-bar { height: 100%; width: 0%; border-radius: 2px; transition: width 0.3s, background 0.3s; }
+    .pw-hint { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 5px; }
+
+    .auth-btn {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, #4a90d9, #5ba0e8); color: #fff; border: none;
+      border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s; margin-top: 6px;
+      box-shadow: 0 4px 16px rgba(74,144,217,0.3);
+    }
+    .auth-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,144,217,0.45); }
+    .auth-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    .auth-links { margin-top: 22px; }
+    .auth-link-row { text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.45); margin-bottom: 8px; }
+    .auth-link-row a { color: #4a90d9; font-weight: 600; transition: color 0.2s; }
+    .auth-link-row a:hover { color: #6bb5ff; }
+
+    .auth-back { text-align: center; margin-top: 16px; }
+    .auth-back a { font-size: 0.82rem; color: rgba(255,255,255,0.3); transition: color 0.2s; }
+    .auth-back a:hover { color: rgba(255,255,255,0.6); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .divider span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      white-space: nowrap;
+    }
+
+    .quick-contact {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .quick-btn {
+      flex: 1;
+      padding: 11px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .quick-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    .auth-message { padding: 13px 16px; border-radius: 9px; font-size: 0.85rem; margin-bottom: 20px; display: none; line-height: 1.5; }
+    .auth-message.error { display: block; background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25); color: #fca5a5; }
+    .auth-message.success { display: block; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: #86efac; }
+
+    .terms-note { font-size: 0.75rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 14px; line-height: 1.6; }
+    .terms-note a { color: rgba(255,255,255,0.5); text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      .auth-card { padding: 32px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <a href="index.html" class="auth-logo">
+        <div class="auth-logo-icon"></div>
+        <div class="logo-text">
+          <span class="logo-name">Reinigungsfirma</span>
+          <span class="logo-city">Team Hamburg</span>
+        </div>
+      </a>
+
+      <h1 class="auth-title">Konto erstellen</h1>
+      <p class="auth-subtitle">Registrieren Sie sich als Kunde – kostenlos & unverbindlich</p>
+
+      <div class="auth-message" id="auth-message"></div>
+
+      <form id="register-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-name">Vollständiger Name *</label>
+            <input type="text" id="reg-name" required placeholder="Max Mustermann" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="reg-phone">Telefon (optional)</label>
+            <input type="tel" id="reg-phone" placeholder="+49 ..." autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email">E-Mail-Adresse *</label>
+          <input type="email" id="reg-email" required placeholder="ihre@email.de" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password">Passwort * <span id="pw-strength-label" style="font-weight:400;color:rgba(255,255,255,0.35)"></span></label>
+          <div class="input-wrapper">
+            <input type="password" id="reg-password" required placeholder="Mindestens 6 Zeichen" minlength="6" autocomplete="new-password">
+            <button type="button" class="toggle-pw" id="toggle-pw1" aria-label="Passwort anzeigen">👁</button>
+          </div>
+          <div class="pw-strength"><div class="pw-strength-bar" id="pw-bar"></div></div>
+          <div class="pw-hint" id="pw-hint">Mindestens 6 Zeichen</div>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password2">Passwort wiederholen *</label>
+          <div class="input-wrapper">
+            <input type="password" id="reg-password2" required placeholder="Passwort bestätigen" autocomplete="new-password">
+            <button type="button" class="toggle-pw" id="toggle-pw2" aria-label="Passwort anzeigen">👁</button>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-btn" id="reg-btn">Konto erstellen</button>
+
+        <p class="terms-note">
+          Mit der Registrierung stimmen Sie unserer
+          <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> zu.
+        </p>
+      </form>
+
+      <div class="auth-links">
+        <div class="auth-link-row">
+          Schon ein Konto? <a href="login.html">Zum Login</a>
+        </div>
+      </div>
+
+      <div class="divider"><span>oder direkt kontaktieren</span></div>
+
+      <div class="quick-contact">
+        <a href="tel:+4915774864072" class="quick-btn">📞 Anrufen</a>
+        <a href="https://wa.me/4915774864072" class="quick-btn" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a href="index.html#kontakt" class="quick-btn">✉️ Formular</a>
+      </div>
+
+      <div class="auth-back">
+        <a href="index.html">← Zurück zur Startseite</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Passwort-Stärke
+    const pwInput = document.getElementById('reg-password');
+    const pwBar = document.getElementById('pw-bar');
+    const pwHint = document.getElementById('pw-hint');
+    const pwLabel = document.getElementById('pw-strength-label');
+
+    pwInput.addEventListener('input', () => {
+      const val = pwInput.value;
+      let score = 0;
+      if (val.length >= 6) score++;
+      if (val.length >= 10) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const levels = [
+        { w: '0%', bg: 'transparent', label: '', hint: 'Mindestens 6 Zeichen' },
+        { w: '25%', bg: '#ef4444', label: '– Schwach', hint: 'Zu kurz oder zu einfach' },
+        { w: '50%', bg: '#f59e0b', label: '– Mittel', hint: 'Füge Zahlen oder Großbuchstaben hinzu' },
+        { w: '75%', bg: '#3b82f6', label: '– Gut', hint: 'Fast perfekt!' },
+        { w: '100%', bg: '#22c55e', label: '– Stark ✓', hint: 'Starkes Passwort!' },
+      ];
+
+      const l = levels[Math.min(score, 4)];
+      pwBar.style.width = l.w;
+      pwBar.style.background = l.bg;
+      pwLabel.textContent = val.length > 0 ? l.label : '';
+      pwHint.textContent = val.length > 0 ? l.hint : 'Mindestens 6 Zeichen';
+    });
+
+    // Passwort-Sichtbarkeit togglen
+    function setupToggle(btnId, inputId) {
+      const btn = document.getElementById(btnId);
+      const input = document.getElementById(inputId);
+      let visible = false;
+      btn.addEventListener('click', () => {
+        visible = !visible;
+        input.type = visible ? 'text' : 'password';
+        btn.textContent = visible ? '🙈' : '👁';
+      });
+    }
+    setupToggle('toggle-pw1', 'reg-password');
+    setupToggle('toggle-pw2', 'reg-password2');
+
+    // Passwort-Match live prüfen
+    const pw2Input = document.getElementById('reg-password2');
+    pw2Input.addEventListener('input', () => {
+      if (pw2Input.value && pw2Input.value !== pwInput.value) {
+        pw2Input.classList.add('invalid');
+        pw2Input.classList.remove('valid');
+      } else if (pw2Input.value && pw2Input.value === pwInput.value) {
+        pw2Input.classList.add('valid');
+        pw2Input.classList.remove('invalid');
+      } else {
+        pw2Input.classList.remove('valid', 'invalid');
+      }
+    });
+
+    // Formular
+    const registerForm = document.getElementById('register-form');
+    const messageBox = document.getElementById('auth-message');
+    const regBtn = document.getElementById('reg-btn');
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const password = pwInput.value;
+      const password2 = pw2Input.value;
+
+      if (password !== password2) {
+        showMsg('❌ Die Passwörter stimmen nicht überein.', 'error');
+        return;
+      }
+
+      if (password.length < 6) {
+        showMsg('❌ Passwort muss mindestens 6 Zeichen haben.', 'error');
+        return;
+      }
+
+      regBtn.textContent = '⏳ Wird erstellt...';
+      regBtn.disabled = true;
+      messageBox.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone, password }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          showMsg('✅ ' + data.message + ' Weiterleitung...', 'success');
+          setTimeout(() => window.location.href = 'login.html', 3000);
+        } else {
+          showMsg('❌ ' + data.message, 'error');
+          regBtn.textContent = 'Konto erstellen';
+          regBtn.disabled = false;
+        }
+      } catch (err) {
+        showMsg('❌ Server nicht erreichbar. Bitte versuchen Sie es später.', 'error');
+        regBtn.textContent = 'Konto erstellen';
+        regBtn.disabled = false;
+      }
+    });
+
+    function showMsg(msg, type) {
+      messageBox.className = 'auth-message ' + type;
+      messageBox.textContent = msg;
+      messageBox.style.display = '';
+    }
+  </script>
+
+</body>
+</html>

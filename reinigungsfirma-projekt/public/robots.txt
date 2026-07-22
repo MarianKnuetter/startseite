@@ -1,0 +1,34 @@
+# =============================================
+# REINIGUNGSFIRMA TEAM HAMBURG – robots.txt
+# Optimiert für maximale SEO-Performance
+# =============================================
+
+# Alle Suchmaschinen (Google, Bing, etc.)
+User-agent: *
+
+# Öffentliche Seiten erlauben
+Allow: /
+Allow: /index.html
+Allow: /impressum.html
+Allow: /datenschutz.html
+Allow: /sitemap.xml
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Private Bereiche blockieren (nicht indexieren!)
+Disallow: /admin.html
+Disallow: /mitarbeiter.html
+Disallow: /dashboard.html
+Disallow: /login.html
+Disallow: /register.html
+Disallow: /forgot-password.html
+Disallow: /reset-password.html
+Disallow: /api/
+Disallow: /data/
+
+# Sitemap-Pfad (wichtig für Google!)
+Sitemap: https://team-hamburg.de/sitemap.xml
+
+# Crawl-Delay: Nicht zu schnell crawlen (schont den Server)
+Crawl-delay: 2

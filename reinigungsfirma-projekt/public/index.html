@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Performance: Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- SEO: Titel & Beschreibung -->
+  <title>Reinigungsfirma Team Hamburg – Professionelle Gebäudereinigung</title>
+  <meta name="description" content="Ihre Reinigungsfirma in Hamburg ✓ Büroreinigung ✓ Praxisreinigung ✓ Unterhaltsreinigung ✓ Privathaushalt. Zuverlässig, gründlich & fair. Jetzt Angebot anfordern!">
+  <meta name="keywords" content="Reinigungsfirma Hamburg, Gebäudereinigung Hamburg, Büroreinigung Hamburg, Unterhaltsreinigung, Grundreinigung, Fensterreinigung, Treppenhausreinigung, Praxisreinigung, Kitareinigung, Reinigungsservice Hamburg">
+  <meta name="author" content="Reinigungsfirma Team Hamburg">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://team-hamburg.de/">
+
+  <!-- SEO: Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Reinigungsfirma Team Hamburg – Einfach immer sauber">
+  <meta property="og:description" content="Professionelle Reinigung in Hamburg. Büro, Praxis, Kita & Privathaushalte. Jetzt kostenloses Erstgespräch vereinbaren!">
+  <meta property="og:url" content="https://team-hamburg.de/">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="Reinigungsfirma Team Hamburg">
+
+  <!-- SEO: Geo-Tags -->
+  <meta name="geo.region" content="DE-HH">
+  <meta name="geo.placename" content="Hamburg">
+  <meta name="geo.position" content="53.5511;9.9937">
+  <meta name="ICBM" content="53.5511, 9.9937">
+
+  <!-- SEO: Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CleaningService",
+    "name": "Reinigungsfirma Team Hamburg",
+    "description": "Professionelle Gebäudereinigung in Hamburg und Umgebung. Büroreinigung, Praxisreinigung, Unterhaltsreinigung und mehr.",
+    "url": "https://team-hamburg.de",
+    "telephone": "+4915774864072",
+    "email": "reinigungsfirmateamhamburg@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hamburg",
+      "addressRegion": "HH",
+      "addressCountry": "DE"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 53.5511,
+      "longitude": 9.9937
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Hamburg"
+    },
+    "serviceType": [
+      "Büroreinigung", "Unterhaltsreinigung", "Grundreinigung",
+      "Fensterreinigung", "Treppenhausreinigung", "Praxisreinigung",
+      "Kitareinigung", "Endreinigung"
+    ],
+    "slogan": "Einfach immer sauber",
+    "priceRange": "€€",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "07:00",
+      "closes": "18:00"
+    },
+    "sameAs": []
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <style>
+    .lang-select {
+      padding: 6px 10px; font-size: 0.78rem; font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
+      background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.7);
+      cursor: pointer; font-family: inherit; outline: none;
+      transition: all 0.3s; -webkit-appearance: none; text-align: center;
+    }
+    .lang-select:hover, .lang-select:focus { border-color: #4a90d9; color: #fff; background: rgba(255,255,255,0.12); }
+    .lang-select option { background: #1e2d4a; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Accessibility: Skip to content -->
+  <a href="#leistungen" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 20px;background:#4a90d9;color:#fff;font-weight:600;border-radius:0 0 8px 0;text-decoration:none;font-size:0.9rem;" onfocus="this.style.left='0';this.style.width='auto';this.style.height='auto'" onblur="this.style.left='-9999px';this.style.width='1px';this.style.height='1px'">Zum Inhalt springen</a>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header id="header">
+    <nav class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <div class="logo-dots"></div>
+        <div class="logo-text">
+          <span class="logo-name">Reinigungsfirma</span>
+          <span class="logo-city">Team Hamburg</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#leistungen" data-i18n="nav-leistungen">Leistungen</a></li>
+        <li><a href="#bereiche" data-i18n="nav-bereiche">Bereiche</a></li>
+        <li><a href="#preise" data-i18n="nav-preise">Preise</a></li>
+        <li><a href="#ueber-uns" data-i18n="nav-ueber">Über uns</a></li>
+        <li><a href="#kontakt" data-i18n="nav-kontakt">Kontakt</a></li>
+        <li><a href="login.html" class="nav-login-btn" data-i18n="nav-login">Kunden-Login</a></li>
+        <li>
+          <select class="lang-select" id="lang-select" onchange="applyLanguage(this.value)">
+            <option value="de">🇩🇪 DE</option>
+            <option value="pl">🇵🇱 PL</option>
+          </select>
+        </li>
+      </ul>
+
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="hero" class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-image-overlay">
+      <img src="img/hero.png" alt="Professionelle Reinigung Team Hamburg" class="hero-img">
+    </div>
+    <div class="hero-content">
+      <p class="hero-tagline" data-i18n="hero-tagline">Reinigungsfirma Team Hamburg</p>
+      <h1 class="hero-title" data-i18n="hero-title">Einfach immer<br><span class="hero-highlight">sauber</span></h1>
+      <p class="hero-subtitle" data-i18n="hero-subtitle">
+        Professionelle Reinigung für Büros, Praxen, Kitas und Privathaushalte in Hamburg.
+        Zuverlässig, gründlich und fair.
+      </p>
+      <div class="hero-buttons">
+        <a href="#kontakt" class="btn btn-primary" data-i18n="hero-btn-1">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Erstgespräch vereinbaren
+        </a>
+        <a href="#leistungen" class="btn btn-secondary" data-i18n="hero-btn-2">Unsere Leistungen</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <span class="trust-number">✓</span>
+          <span data-i18n="hero-trust-1">Kostenlose Beratung</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">✓</span>
+          <span data-i18n="hero-trust-2">Faire Preise</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">✓</span>
+          <span data-i18n="hero-trust-3">Hamburg & Umgebung</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">✓</span>
+          <span data-i18n="hero-trust-4">Schnelle Reaktionszeit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEISTUNGEN ============ -->
+  <section id="leistungen" class="section">
+    <div class="container">
+      <p class="section-tag" data-i18n="leistungen-tag">Was wir bieten</p>
+      <h2 class="section-title" data-i18n="leistungen-title">Unsere Leistungen</h2>
+      <p class="section-subtitle" data-i18n="leistungen-sub">Von der regelmäßigen Unterhaltsreinigung bis zur Privatreinigung – für Gewerbe und Privathaushalte.</p>
+
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <span class="service-icon">🔍</span>
+          <h3 data-i18n="sicht-title">Sichtreinigung</h3>
+          <p data-i18n="sicht-desc">Schnelle Reinigung der sichtbaren Bereiche. Ideal für den ersten Eindruck bei Kunden und Besuchern.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-icon">🔄</span>
+          <h3 data-i18n="unterhalt-title">Unterhaltsreinigung</h3>
+          <p data-i18n="unterhalt-desc">Regelmäßige Reinigung nach festem Plan. Wöchentlich, mehrmals pro Woche oder täglich – wie Sie es brauchen.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-icon">✨</span>
+          <h3 data-i18n="grund-title">Grundreinigung</h3>
+          <p data-i18n="grund-desc">Intensive Tiefenreinigung aller Oberflächen. Für einen sauberen Neustart in Ihren Räumlichkeiten.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-icon">🏠</span>
+          <h3 data-i18n="end-title">Endreinigung</h3>
+          <p data-i18n="end-desc">Gründliche Reinigung bei Umzug oder Übergabe. Damit alles in bestem Zustand hinterlassen wird.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-icon">🪟</span>
+          <h3 data-i18n="fenster-title">Fensterreinigung</h3>
+          <p data-i18n="fenster-desc">Streifenfreie Fenster für Ihr Zuhause oder Büro. Innen und außen, auch bei schwer erreichbaren Fenstern.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <span class="service-icon">🪜</span>
+          <h3 data-i18n="treppen-title">Treppenhausreinigung</h3>
+          <p data-i18n="treppen-desc">Saubere Treppenhäuser und Gemeinschaftsflächen. Regelmäßig oder einmalig nach Vereinbarung.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEREICHE ============ -->
+  <section id="bereiche" class="section section-dark">
+    <div class="container">
+      <p class="section-tag" data-i18n="bereiche-tag">Wo wir arbeiten</p>
+      <h2 class="section-title" data-i18n="bereiche-title">Unsere Einsatzbereiche</h2>
+
+      <div class="areas-grid">
+        <div class="area-card reveal">
+          <img src="img/buero.png" alt="Büroreinigung Hamburg" class="area-img">
+          <div class="area-card-body">
+            <div class="area-icon">🏢</div>
+            <h3 data-i18n="buero-title">Büro</h3>
+            <p data-i18n="buero-desc">Saubere Arbeitsplätze für zufriedene Mitarbeiter. Wir reinigen Büros jeder Größe.</p>
+          </div>
+        </div>
+
+        <div class="area-card reveal">
+          <img src="img/praxis.png" alt="Praxisreinigung Hamburg" class="area-img">
+          <div class="area-card-body">
+            <div class="area-icon">🏥</div>
+            <h3 data-i18n="praxis-title">Praxis</h3>
+            <p data-i18n="praxis-desc">Hygienische Reinigung für Arztpraxen und Therapieräume nach höchsten Standards.</p>
+          </div>
+        </div>
+
+        <div class="area-card reveal">
+          <img src="img/kita.png" alt="Kitareinigung Hamburg" class="area-img">
+          <div class="area-card-body">
+            <div class="area-icon">👶</div>
+            <h3 data-i18n="kita-title">Kita</h3>
+            <p data-i18n="kita-desc">Kindgerechte Sauberkeit für Krippen und Kindergärten. Sicher und gründlich.</p>
+          </div>
+        </div>
+
+        <div class="area-card reveal">
+          <img src="img/privathaushalt.png" alt="Privathaushalt Reinigung Hamburg" class="area-img">
+          <div class="area-card-body">
+            <div class="area-icon">🏡</div>
+            <h3 data-i18n="privat-title">Privathaushalt</h3>
+            <p data-i18n="privat-desc">Wohnungen und Häuser gründlich reinigen. Regelmäßig oder als Frühjahrsputz – ganz wie Sie möchten.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEWERTUNGEN ============ -->
+  <section class="testimonials-section">
+    <div class="container">
+      <p class="section-tag" style="color:#f59e0b">⭐ Kundenstimmen</p>
+      <h2 class="section-title" style="color:#fff">Was unsere Kunden sagen</h2>
+      <p class="section-subtitle" style="color:rgba(255,255,255,0.45)">Echte Erfahrungen von zufriedenen Kunden in Hamburg.</p>
+
+      <div class="testimonials-carousel" id="testimonials-carousel">
+        <div class="testimonials-track" id="testimonials-track">
+          <!-- Fallback-Bewertungen (werden durch API-Daten ersetzt wenn vorhanden) -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">Super gründlich und absolut zuverlässig. Unser Büro war noch nie so sauber! Das Team ist immer pünktlich und sehr professionell.</p>
+            <div class="testimonial-name">Thomas K.</div>
+            <div class="testimonial-service">Büroreinigung</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">Sehr nettes Team, pünktlich und gründlich. Kann ich nur weiterempfehlen! Preis-Leistungs-Verhältnis ist top.</p>
+            <div class="testimonial-name">Sandra M.</div>
+            <div class="testimonial-service">Privathaushalt</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">Top Preis-Leistung! Unsere Praxis wird seit einem Jahr regelmäßig gereinigt. Hygiene auf höchstem Niveau.</p>
+            <div class="testimonial-name">Dr. Lisa F.</div>
+            <div class="testimonial-service">Praxisreinigung</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">Endlich ein Reinigungsservice, der wirklich alles sauber macht. Die Endreinigung nach unserem Umzug war perfekt!</p>
+            <div class="testimonial-name">Familie Berger</div>
+            <div class="testimonial-service">Endreinigung</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">Unsere Kita wird jetzt wöchentlich gereinigt. Die Kinder haben eine saubere Umgebung und die Eltern sind begeistert!</p>
+            <div class="testimonial-name">Kita Sonnenblume</div>
+            <div class="testimonial-service">Kitareinigung</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">Die Fensterreinigung war makellos – kein einziger Streifen. Schnell, sauber, unkompliziert. Sehr empfehlenswert!</p>
+            <div class="testimonial-name">Michael H.</div>
+            <div class="testimonial-service">Fensterreinigung</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="carousel-prev" aria-label="Zurück">‹</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <button class="carousel-btn" id="carousel-next" aria-label="Weiter">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PREISE ============ -->
+  <section id="preise" class="prices-section">
+    <div class="container">
+      <p class="section-tag" data-i18n="preise-tag">Transparente Kosten</p>
+      <h2 class="section-title" data-i18n="preise-title">Preisbeispiele</h2>
+      <p class="section-subtitle" data-i18n="preise-sub">Alle Preise sind Richtwerte. Das genaue Angebot erhalten Sie nach einem kostenlosen Erstgespräch.</p>
+
+      <div class="prices-grid">
+        <div class="price-card reveal">
+          <span class="price-icon">🏠</span>
+          <h3 data-i18n="price-privat-title">Privathaushalt</h3>
+          <p class="price-hint" data-i18n="price-privat-hint">Regelmäßige Reinigung Ihrer Wohnung oder Ihres Hauses</p>
+          <ul class="price-features">
+            <li data-i18n="price-privat-f1">Wohnungsreinigung ab 2h</li>
+            <li data-i18n="price-privat-f2">Flexible Termine</li>
+            <li data-i18n="price-privat-f3">Eigene Reinigungsmittel</li>
+            <li data-i18n="price-privat-f4">Vertrauensvolle Mitarbeiter</li>
+          </ul>
+          <a href="#kontakt" class="btn btn-primary btn-full" data-i18n="price-btn">Angebot anfragen</a>
+          <p class="price-note" data-i18n="price-note">Kostenlose Erstberatung</p>
+        </div>
+
+        <div class="price-card popular reveal">
+          <span class="price-icon">🏢</span>
+          <h3 data-i18n="price-buero-title">Büro & Gewerbe</h3>
+          <p class="price-hint" data-i18n="price-buero-hint">Professionelle Unterhaltsreinigung für Ihr Unternehmen</p>
+          <ul class="price-features">
+            <li data-i18n="price-buero-f1">Ab 3× pro Woche möglich</li>
+            <li data-i18n="price-buero-f2">Früh-, Spät- & Wochenendservice</li>
+            <li data-i18n="price-buero-f3">Sanitär & Küche inklusive</li>
+            <li data-i18n="price-buero-f4">Vertragskunden mit Rabatt</li>
+          </ul>
+          <a href="#kontakt" class="btn btn-primary btn-full" data-i18n="price-btn">Angebot anfragen</a>
+          <p class="price-note" data-i18n="price-note">Kostenlose Erstberatung</p>
+        </div>
+
+        <div class="price-card reveal">
+          <span class="price-icon">✨</span>
+          <h3 data-i18n="price-grund-title">Grund- & Endreinigung</h3>
+          <p class="price-hint" data-i18n="price-grund-hint">Intensive Tiefenreinigung – einmalig oder nach Bedarf</p>
+          <ul class="price-features">
+            <li data-i18n="price-grund-f1">Komplettreinigung aller Flächen</li>
+            <li data-i18n="price-grund-f2">Ideal bei Umzug / Übergabe</li>
+            <li data-i18n="price-grund-f3">Professionelle Geräte</li>
+            <li data-i18n="price-grund-f4">Auf Wunsch Zeugnis</li>
+          </ul>
+          <a href="#kontakt" class="btn btn-primary btn-full" data-i18n="price-btn">Angebot anfragen</a>
+          <p class="price-note" data-i18n="price-note">Kostenlose Erstberatung</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÜBER UNS ============ -->
+  <section id="ueber-uns" class="section" style="background:linear-gradient(180deg,#f0f4f8,#f8f9fb)">
+    <div class="container">
+      <div class="about-layout">
+        <div class="about-text reveal-left">
+          <p class="section-tag" style="justify-content:flex-start;text-align:left" data-i18n="about-tag">Wer wir sind</p>
+          <h2 class="section-title" style="text-align:left" data-i18n="about-title">Ihr Partner für Sauberkeit in Hamburg</h2>
+          <p data-i18n="about-desc">
+            Wir sind ein zuverlässiges Reinigungsteam aus Hamburg. Unsere Arbeit ist
+            gründlich, pünktlich und transparent. Wir passen unsere Leistungen an
+            Ihre Bedürfnisse an – ob Privatwohnung, kleine Praxis oder großes Bürogebäude.
+          </p>
+          <ul class="about-list">
+            <li data-i18n="about-li-1">Zuverlässig und pünktlich</li>
+            <li data-i18n="about-li-2">Faire und transparente Preise</li>
+            <li data-i18n="about-li-3">Flexible Einsatzzeiten</li>
+            <li data-i18n="about-li-4">Erfahrenes und freundliches Team</li>
+          </ul>
+        </div>
+        <div class="about-image reveal-right">
+          <img src="img/supplies.png" alt="Professionelle Reinigung Hamburg" class="about-img">
+          <div class="about-image-badge">
+            <span class="badge-icon">✨</span>
+            <span data-i18n="about-badge">Einfach immer sauber</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <div class="stat-number" data-i18n="stat-1-num">100%</div>
+          <div class="stat-label" data-i18n="stat-1-label">Einsatz</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-i18n="stat-2-num">Hamburg</div>
+          <div class="stat-label" data-i18n="stat-2-label">& Umgebung</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-i18n="stat-3-num">Flexibel</div>
+          <div class="stat-label" data-i18n="stat-3-label">Einsatzzeiten</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-i18n="stat-4-num">Fair</div>
+          <div class="stat-label" data-i18n="stat-4-label">Preise</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="faq-section">
+    <div class="container">
+      <p class="section-tag" data-i18n="faq-tag">Häufige Fragen</p>
+      <h2 class="section-title" data-i18n="faq-title">FAQ – Ihre Fragen, unsere Antworten</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            <span data-i18n="faq-q1">Wie bekomme ich ein Angebot?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner" data-i18n="faq-a1">
+              Einfach das Kontaktformular ausfüllen oder direkt anrufen. Wir melden uns innerhalb von 24 Stunden für ein kostenloses Erstgespräch. Das Angebot ist immer unverbindlich.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            <span data-i18n="faq-q2">In welchen Bereichen arbeiten Sie?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner" data-i18n="faq-a2">
+              Wir sind in Hamburg und dem gesamten Hamburger Umland tätig. Dazu gehören Hamburger Stadtteile sowie angrenzende Städte wie Norderstedt, Ahrensburg, Buxtehude und weitere.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            <span data-i18n="faq-q3">Wie oft wird gereinigt?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner" data-i18n="faq-a3">
+              Das entscheiden Sie! Wir bieten tägliche, wöchentliche oder monatliche Reinigung an. Für Unternehmen empfehlen wir mindestens 2–3× pro Woche, für Privathaushalte reicht oft 1× wöchentlich.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            <span data-i18n="faq-q4">Bringen Sie eigene Reinigungsmittel mit?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner" data-i18n="faq-a4">
+              Ja! Wir bringen professionelle Reinigungsmittel und Geräte mit. Auf Wunsch können wir auch Ihre bevorzugten Produkte verwenden – zum Beispiel bei Allergien oder Umweltzertifizierungen.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            <span data-i18n="faq-q5">Gibt es einen festen Ansprechpartner?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner" data-i18n="faq-a5">
+              Ja. Stammkunden erhalten nach Möglichkeit immer dasselbe Team, das Ihre Räumlichkeiten kennt. So entsteht Vertrauen und die Qualität bleibt konstant hoch.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            <span data-i18n="faq-q6">Was kostet die Reinigung?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner" data-i18n="faq-a6">
+              Der Preis hängt von Größe, Art und Häufigkeit der Reinigung ab. Wir erstellen Ihnen nach einem kostenlosen Erstgespräch ein individuelles Angebot. Es gibt keine versteckten Kosten.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KONTAKT ============ -->
+  <section id="kontakt" class="section section-dark">
+    <div class="container">
+      <p class="section-tag" data-i18n="kontakt-tag">Kontakt aufnehmen</p>
+      <h2 class="section-title" data-i18n="kontakt-title">Jetzt Erstgespräch vereinbaren</h2>
+      <p class="section-subtitle" data-i18n="kontakt-sub">Schreiben Sie uns eine Nachricht oder rufen Sie direkt an. Wir melden uns schnell zurück.</p>
+
+      <div class="contact-layout">
+        <div class="reveal">
+          <form class="contact-form" id="contact-form">
+            <div id="form-content">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name" data-i18n="form-name">Name *</label>
+                  <input type="text" id="name" name="name" required placeholder="Ihr Name" data-i18n-ph="form-name-ph" autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label for="email" data-i18n="form-email">E-Mail *</label>
+                  <input type="email" id="email" name="email" required placeholder="ihre@email.de" data-i18n-ph="form-email-ph" autocomplete="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="phone" data-i18n="form-phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="+49 ..." autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="service" data-i18n="form-service">Gewünschte Leistung</label>
+                <select id="service" name="service">
+                  <option value="" data-i18n="form-select">Bitte wählen...</option>
+                  <option value="sichtreinigung" data-i18n="opt-sicht">Sichtreinigung</option>
+                  <option value="unterhaltsreinigung" data-i18n="opt-unterhalt">Unterhaltsreinigung</option>
+                  <option value="grundreinigung" data-i18n="opt-grund">Grundreinigung</option>
+                  <option value="endreinigung" data-i18n="opt-end">Endreinigung</option>
+                  <option value="fensterreinigung" data-i18n="opt-fenster">Fensterreinigung</option>
+                  <option value="treppenhausreinigung" data-i18n="opt-treppen">Treppenhausreinigung</option>
+                  <option value="privathaushalt" data-i18n="opt-privat">Privathaushalt (regelmäßig)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message" data-i18n="form-message">Nachricht *</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Beschreiben Sie kurz, was gereinigt werden soll..." data-i18n-ph="form-msg-ph"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full" id="form-submit-btn" data-i18n="form-submit">Nachricht senden</button>
+            </div>
+            <div class="form-success" id="form-success">
+              <div class="success-icon">✅</div>
+              <h3>Vielen Dank!</h3>
+              <p>Ihre Nachricht wurde gesendet. Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+            </div>
+          </form>
+        </div>
+
+        <div class="reveal">
+          <div class="contact-info-card">
+            <div class="contact-info-item">
+              <span class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <div>
+                <strong data-i18n="contact-phone">Telefon</strong>
+                <a href="tel:+4915774864072">+49 1577 48 64 072</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </span>
+              <div>
+                <strong data-i18n="contact-email">E-Mail</strong>
+                <a href="mailto:reinigungsfirmateamhamburg@gmail.com">reinigungsfirmateamhamburg@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <div>
+                <strong data-i18n="contact-location">Standort</strong>
+                <span data-i18n="contact-location-val">Hamburg & Umgebung</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Öffnungszeiten -->
+          <div class="opening-hours reveal">
+            <h4 data-i18n="hours-title">Erreichbarkeit</h4>
+            <div class="hours-row" id="hours-mo"><span class="hours-day" data-i18n="hours-mon">Mo – Fr</span><span class="hours-time" data-i18n="hours-mon-time">07:00 – 18:00 Uhr</span></div>
+            <div class="hours-row"><span class="hours-day" data-i18n="hours-sat">Samstag</span><span class="hours-time" data-i18n="hours-sat-time">09:00 – 14:00 Uhr</span></div>
+            <div class="hours-row"><span class="hours-day" data-i18n="hours-sun">Sonntag</span><span class="hours-time closed" data-i18n="hours-sun-time">Geschlossen</span></div>
+          </div>
+
+          <!-- Google Maps -->
+          <div style="margin-top:20px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1)">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151847.30268007558!2d9.848889!3d53.553406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b161837e1813b9%3A0x4263df27bd63aa0!2sHamburg!5e0!3m2!1sde!2sde!4v1700000000000!5m2!1sde!2sde"
+              width="100%" height="200" style="border:0;display:block" allowfullscreen loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" title="Standort Hamburg">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo-text">
+            <span class="logo-name">Reinigungsfirma</span>
+            <span class="logo-city">Team Hamburg</span>
+          </div>
+          <p class="footer-slogan" data-i18n="footer-slogan">Einfach immer sauber</p>
+        </div>
+        <div class="footer-links">
+          <a href="#leistungen" data-i18n="nav-leistungen">Leistungen</a>
+          <a href="#bereiche" data-i18n="nav-bereiche">Bereiche</a>
+          <a href="#preise" data-i18n="nav-preise">Preise</a>
+          <a href="#kontakt" data-i18n="nav-kontakt">Kontakt</a>
+          <a href="login.html" data-i18n="nav-login">Kunden-Login</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+        <div class="footer-social">
+          <a href="tel:+4915774864072" class="social-btn" title="Jetzt anrufen" aria-label="Anrufen">📞</a>
+          <a href="mailto:reinigungsfirmateamhamburg@gmail.com" class="social-btn" title="E-Mail senden" aria-label="E-Mail">✉️</a>
+          <a href="https://wa.me/4915774864072" class="social-btn" title="WhatsApp" aria-label="WhatsApp" target="_blank" rel="noopener">💬</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer-copy">© 2026 Reinigungsfirma Team Hamburg. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/4915774864072?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Ihre%20Reinigungsleistungen."
+     class="whatsapp-float" id="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp kontaktieren">
+    <span class="whatsapp-tooltip">Schreiben Sie uns!</span>
+    💬
+  </a>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Nach oben scrollen" title="Nach oben">↑</button>
+
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-inner">
+      <p class="cookie-text">
+        🍪 Diese Website verwendet nur technisch notwendige Cookies für die Login-Funktion.
+        <a href="datenschutz.html">Mehr erfahren</a>
+      </p>
+      <button class="cookie-btn" onclick="acceptCookies()" id="cookie-accept-btn">Verstanden</button>
+    </div>
+  </div>
+
+  <script>
+    // Cookie Banner
+    if (!localStorage.getItem('cookiesAccepted')) {
+      setTimeout(() => document.getElementById('cookie-banner').classList.add('show'), 1000);
+    }
+    function acceptCookies() {
+      localStorage.setItem('cookiesAccepted', 'true');
+      document.getElementById('cookie-banner').classList.remove('show');
+    }
+  </script>
+
+  <script src="js/i18n.js?v=3"></script>
+  <script src="js/main.js?v=3"></script>
+</body>
+</html>
