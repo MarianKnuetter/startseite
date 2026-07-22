@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finanz-Tracker — Budget &amp; Ausgaben</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient background glow -->
+  <div class="bg-glow"></div>
+
+  <div class="app-wrapper">
+
+    <!-- Top Summary Banner -->
+    <header class="finance-header">
+      <div class="header-main">
+        <h1>Finanz-Tracker</h1>
+        <p class="subtitle">Deine Finanzen im Überblick</p>
+      </div>
+
+      <!-- Balance indicator card -->
+      <div class="balance-card">
+        <span class="card-label">Gesamtsaldo</span>
+        <h2 id="total-balance">1.840,50 €</h2>
+        <div class="balance-flow">
+          <div class="flow-item income">
+            <span class="flow-arrow">↑</span>
+            <span>Einnahmen: <strong id="flow-in">+2.500,00 €</strong></span>
+          </div>
+          <div class="flow-item expense">
+            <span class="flow-arrow">↓</span>
+            <span>Ausgaben: <strong id="flow-out">-659,50 €</strong></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Grid -->
+    <main class="finance-grid">
+
+      <!-- Left Column: Add Transaction & Goal Progress -->
+      <div class="grid-column">
+
+        <!-- Transaction Form Card -->
+        <section class="finance-card">
+          <h3>Transaktion hinzufügen</h3>
+
+          <form id="tx-form">
+            <div class="form-group">
+              <label for="tx-desc">Beschreibung *</label>
+              <input type="text" id="tx-desc" placeholder="z.B. Wocheneinkauf, Gehalt, Kaffee..." required>
+            </div>
+
+            <div class="form-group row">
+              <div class="input-half">
+                <label for="tx-amount">Betrag (€) *</label>
+                <input type="number" id="tx-amount" min="0.01" step="0.01" placeholder="0.00" required>
+              </div>
+              <div class="input-half">
+                <label for="tx-type">Typ</label>
+                <select id="tx-type">
+                  <option value="expense">Ausgabe</option>
+                  <option value="income">Einnahme</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="tx-category">Kategorie</label>
+              <select id="tx-category">
+                <option value="wohnen">Wohnen</option>
+                <option value="lebensmittel">Lebensmittel</option>
+                <option value="freizeit">Freizeit</option>
+                <option value="transport">Transport</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Eintragen</button>
+          </form>
+        </section>
+
+        <!-- Budget Goals Progress -->
+        <section class="finance-card">
+          <h3>Budget-Limits</h3>
+          <p class="section-desc">Monatliche Ausgabenlimits je Kategorie</p>
+
+          <div class="budget-limits-list">
+            <!-- Limit Item 1 -->
+            <div class="limit-item" data-category="wohnen">
+              <div class="limit-info">
+                <span class="limit-name">🏠 Wohnen</span>
+                <span class="limit-vals"><span id="limit-wohnen-val">450</span> / 1.000 €</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="pb-wohnen" style="width: 45%"></div>
+              </div>
+            </div>
+
+            <!-- Limit Item 2 -->
+            <div class="limit-item" data-category="lebensmittel">
+              <div class="limit-info">
+                <span class="limit-name">🛒 Lebensmittel</span>
+                <span class="limit-vals"><span id="limit-lebensmittel-val">120</span> / 400 €</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="pb-lebensmittel" style="width: 30%"></div>
+              </div>
+            </div>
+
+            <!-- Limit Item 3 -->
+            <div class="limit-item" data-category="freizeit">
+              <div class="limit-info">
+                <span class="limit-name">🍿 Freizeit</span>
+                <span class="limit-vals"><span id="limit-freizeit-val">89</span> / 250 €</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="pb-freizeit" style="width: 35.6%"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Column: Visual Donut Chart & History List -->
+      <div class="grid-column">
+
+        <!-- Donut Chart Card -->
+        <section class="finance-card card-chart">
+          <h3>Ausgabenaufteilung</h3>
+
+          <div class="chart-wrapper">
+            <!-- Dynamic SVG Donut Chart -->
+            <div class="svg-chart-container">
+              <svg viewBox="0 0 160 160" class="donut-svg">
+                <circle class="donut-bg" cx="80" cy="80" r="60"></circle>
+                <!-- Segments will be drawn dynamically via script.js -->
+                <g id="donut-segments-group"></g>
+              </svg>
+              <div class="donut-center-info">
+                <span class="donut-total-val" id="donut-total-val">659,50 €</span>
+                <span class="donut-total-lbl">Gesamt</span>
+              </div>
+            </div>
+
+            <!-- Chart Legend -->
+            <div class="chart-legend" id="chart-legend">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Transaction History -->
+        <section class="finance-card card-history">
+          <h3>Transaktionsverlauf</h3>
+
+          <div class="history-list" id="history-list">
+            <!-- Items generated via JS -->
+            <div class="tx-item">
+              <div class="tx-details">
+                <span class="tx-title">Gehalt</span>
+                <span class="tx-meta">12. Juni · Einnahme · Sonstiges</span>
+              </div>
+              <span class="tx-amount income">+2.500,00 €</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
